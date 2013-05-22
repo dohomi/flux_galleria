@@ -1,0 +1,149 @@
+{namespace flux=Tx_Flux_ViewHelpers}
+{namespace dmf=Tx_FluxGalleria_ViewHelpers}
+{namespace vhs=Tx_Vhs_ViewHelpers}
+
+<f:layout name="Default"/>
+
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://typo3.org/ns/fluid/ViewHelpers"
+     xmlns:flux="http://fedext.net/ns/flux/ViewHelpers"
+     xmlns:v="http://fedext.net/ns/vhs/ViewHelpers">
+
+<f:section name="Configuration">
+    <flux:flexform id="galleria" enabled="TRUE" label="Galleria image & video plugin">
+
+        <flux:flexform.sheet name="data" label="Images / Videos">
+
+            <flux:flexform.section name="items" label="Items">
+                <flux:flexform.object name="item" label="Gallery item">
+
+                    <flux:flexform.field.select name="type" label="Type" items="{0: 'Please select', 1: 'Image', 2: 'Video', 3: 'IFrame', 4: 'Flickr', 5: 'Picasa', 6: 'Folder'}" default="0"
+                                                requestUpdate="TRUE"/>
+
+                    <f:comment>Here are the image configuration fields</f:comment>
+                    <flux:flexform.field.file name="original" label="Main image" displayCond="FIELD:type:=:1" required="TRUE"/>
+
+                    <flux:flexform.field.file name="thumb" label="Image thumbnail source" displayCond="FIELD:type:=:1"/>
+                    <flux:flexform.field.input name="title" label="Title" displayCond="FIELD:type:=:1"/>
+                    <flux:flexform.field.input name="link" label="Link" displayCond="FIELD:type:=:1">
+                        <flux:flexform.field.wizard.link/>
+                    </flux:flexform.field.input>
+                    <flux:flexform.field.text name="description" label="Description" displayCond="FIELD:type:=:1" enableRichText="0"/>
+                    <flux:flexform.field.text name="layer" label="Overlay" displayCond="FIELD:type:=:1" enableRichText="1"/>
+
+                    <f:comment>Video configuration fields</f:comment>
+                    <flux:flexform.field.input name="video" label="Video url (vimeo youtube dailymotion)" displayCond="FIELD:type:=:2" required="TRUE"/>
+                    <flux:flexform.field.file name="thumb_video" label="Image thumbnail" displayCond="FIELD:type:=:2"/>
+                    <flux:flexform.field.input name="title_video" label="Video title" displayCond="FIELD:type:=:2"/>
+                    <flux:flexform.field.input name="description_video" label="Video description" displayCond="FIELD:type:=:2"/>
+                    <flux:flexform.field.text name="layer_video" label="Overlay" displayCond="FIELD:type:=:2" enableRichText="1"/>
+
+
+                    <f:comment>Iframe configuration fields</f:comment>
+                    <flux:flexform.field.input name="iframe" label="IFrame url" displayCond="FIELD:type:=:3" required="TRUE"/>
+                    <flux:flexform.field.file name="thumb_iframe" label="Image thumbnail" displayCond="FIELD:type:=:3"/>
+
+                    <flux:flexform.field.input name="title_iframe" label="IFrame title" displayCond="FIELD:type:=:3"/>
+                    <flux:flexform.field.text name="description_iframe" label="IFrame description" displayCond="FIELD:type:=:3"/>
+                    <flux:flexform.field.text name="layer_iframe" label="Overlay" displayCond="FIELD:type:=:3" enableRichText="1"/>
+
+                    <f:comment>Flickr configuration fields</f:comment>
+                    <flux:flexform.field.select name="flickr_method" label="Flickr method to pull images." commaSeparatedItems="search,tags,user,set,gallery,groupsearch,group"
+                                                displayCond="FIELD:type:=:4"/>
+                    <flux:flexform.field.input name="flickr" label="Flickr parameter" displayCond="FIELD:type:=:4"/>
+                    <flux:flexform.field.input name="max_flickr" label="Maximum number of photos to return (maximum value 100)" default="30" displayCond="FIELD:type:=:4"/>
+                    <flux:flexform.field.select name="imageSize_flickr" label="The size to fetch for the main image. The bigger size, the slower downloads and interaction."
+                                                displayCond="FIELD:type:=:4"
+                                                items="{medium: 'Medium: 640 on longest side',small: 'Small: square 75x75',thumb: 'Thumb: 100 on longest side',big: 'Big: 1024 on longest side', orginal: 'Original:  original image'}"/>
+                    <flux:flexform.field.select name="thumbSize_flickr" label="The size to fetch for the thumb image." displayCond="FIELD:type:=:4"
+                                                items="{thumb: 'Thumb: 100 on longest side',medium: 'Medium: 640 on longest side',small: 'Small: square 75x75', big: 'Big: 1024 on longest side', original: 'Original:  original image'}"/>
+                    <flux:flexform.field.select name="sort_flickr" label="Sets in what order the photos will be shown." displayCond="FIELD:type:=:4"
+                                                commaSeparatedItems="interestingness-desc,interestingness-asc,date-posted-asc,date-posted-desc,date-taken-asc,date-taken-desc,relevance"/>
+                    <flux:flexform.field.select name="description_flickr" label="If you also wish to fetch the description, set this option to true." commaSeparatedItems="false,true"
+                                                displayCond="FIELD:type:=:4"/>
+
+
+                    <f:comment>Picasa configuration fields</f:comment>
+                    <flux:flexform.field.select name="picasa_method" label="Picasa method to pull images" displayCond="FIELD:type:=:5" commaSeparatedItems="search,user,useralbum"/>
+                    <flux:flexform.field.input name="picasa" label="Picasa parameter" displayCond="FIELD:type:=:5"/>
+                    <flux:flexform.field.input name="max_picasa" label="Maximum number of photos to return (maximum value 100)" default="30" displayCond="FIELD:type:=:5"/>
+                    <flux:flexform.field.select name="imageSize_picasa" label="The size to fetch for the main image. The bigger size, the slower downloads and interaction."
+                                                displayCond="FIELD:type:=:5"
+                                                items="{medium: 'Medium: 640 on longest side',small: 'Small: square 75x75',thumb: 'Thumb: 100 on longest side',big: 'Big: 1024 on longest side', orginal: 'Original:  original image'}"/>
+                    <flux:flexform.field.select name="thumbSize_picasa" label="The size to fetch for the thumb image." displayCond="FIELD:type:=:5"
+                                                items="{thumb: 'Thumb: 100 on longest side',medium: 'Medium: 640 on longest side',small: 'Small: square 75x75', big: 'Big: 1024 on longest side', original: 'Original:  original image'}"/>
+
+                    <f:comment>Folder configuration fields</f:comment>
+                    <flux:flexform.field.input name="folder" label="Path to folder." displayCond="FIELD:type:=:6"/>
+                    <flux:flexform.field.input name="extension" label="Comma seperated list of allowed file extensions" displayCond="FIELD:type:=:6"/>
+
+
+                </flux:flexform.object>
+            </flux:flexform.section>
+        </flux:flexform.sheet>
+
+        <flux:flexform.sheet name="config" label="Display">
+            <flux:flexform.field.input name="width" label="Galleria width. INT or 'auto' is allowed" default="'auto'"/>
+            <flux:flexform.field.input name="height" label="Galleria height, required value. INT or for responsive design 0.68 is possible" default="400"/>
+
+            <flux:flexform.field.select name="thumbnails" label="Creates thumbnails and carousel" default="true" requestUpdate="TRUE" commaSeparatedItems="true, 'empty', 'numbers', 'lazy', false"/>
+            <flux:flexform.field.input name="thumbWidth" label="Galleria thumbnail width" default="63" displayCond="FIELD:thumbnails:!=:false"/>
+            <flux:flexform.field.input name="thumbHeight" label="Galleria thumbnail height" default="27" displayCond="FIELD:thumbnails:!=:false"/>
+
+            <flux:flexform.field.input name="maxScaleRatio" label="Sets the maximum scale ratio for images. Set 1 for non-upscale" displayCond="FIELD:thumbnails:!=:false"/>
+            <flux:flexform.field.input name="minScaleRatio" label="Sets the minimum scale ratio for images. Set 1 for non-downscale" displayCond="FIELD:thumbnails:!=:false"/>
+
+
+        </flux:flexform.sheet>
+
+        <flux:flexform.sheet name="show" label="Show options">
+            <flux:flexform.field.input name="imagePosition" label="Position of image to show. Same as background-image position" default="center"/>
+            <flux:flexform.field.select name="imageCrop" label="Crops image inside its container" commaSeparatedItems="false,true,'height','width','landscape','portrait'"/>
+            <flux:flexform.field.input name="show" label="Index of image where to start first" default="0"/>
+            <flux:flexform.field.select name="showCounter" label="Toggle the counter" commaSeparatedItems="true,false"/>
+            <flux:flexform.field.select name="showInfo" label="Display of image caption" commaSeparatedItems="true,false"/>
+            <flux:flexform.field.select name="showImagenav" label="Display image navigation" commaSeparatedItems="true,false"/>
+        </flux:flexform.sheet>
+
+        <flux:flexform.sheet name="lightbox" label="Lightbox">
+            <flux:flexform.field.select name="lightbox" label="Lightbox for images (only on non-linked images)" commaSeparatedItems="false,true"/>
+            <flux:flexform.field.input name="lightboxFadeSpeed" label="This value controls how lightbox images should fade in milliseconds." default="200"/>
+            <flux:flexform.field.input name="lightboxTransitionSpeed" label="This value controls the transition speed." default="300"/>
+            <flux:flexform.field.input name="overlayBackground" label="This defines the overlay background color when calling showLightbox()." default="#0b0b0b"/>
+            <flux:flexform.field.input name="overlayOpacity" label="This sets how much opacity the overlay should have when calling showLightbox()." default="0.85"/>
+        </flux:flexform.sheet>
+
+        <flux:flexform.sheet name="carousel" label="Carousel">
+            <flux:flexform.field.select name="carousel" label="Galleria comes with a built-in horizontal carousel." commaSeparatedItems="true,false"/>
+            <flux:flexform.field.input name="carouselSpeed" label="This option controls the slide speed of the carousel in milliseconds." default="1200"/>
+            <flux:flexform.field.input name="carouselSteps" label="The number of 'steps' the carousel will advance when navigating between available thumbnails. Integer or 'auto'." default="'auto'"/>
+
+        </flux:flexform.sheet>
+
+        <flux:flexform.sheet name="js-config" label="Additional options">
+            <flux:flexform.field.select name="transition" label="Transition of gallery" commaSeparatedItems="'slide', 'fade', 'flash', 'pulse', 'fadeslide'"/>
+            <flux:flexform.field.checkbox name="history" label="Enable History plugin."/>
+            <flux:flexform.field.select name="popupLinks" label="Every link on pictures set to _blank" commaSeparatedItems="false,true"/>
+            <flux:flexform.field.select name="responsive" label="Set galleria in responsive mode" commaSeparatedItems="false,true"/>
+            <flux:flexform.field.select name="imagePan" label="Pan effect for cropped pictures" commaSeparatedItems="false,true"/>
+            <flux:flexform.field.select name="debug" label="Enable debug for error reporting" commaSeparatedItems="false,true"/>
+            <flux:flexform.field.text name="js-option" label="Add your specific js options. Options must end with a ',' at the end, otherwise it breaks the js functionality."/>
+
+        </flux:flexform.sheet>
+
+    </flux:flexform>
+</f:section>
+
+<f:section name="Preview">
+    Total <b>
+    <f:if condition="{items}">
+        <f:count subject="{items}"/>
+    </f:if>
+</b> gallery elements included.
+</f:section>
+
+<f:section name="Main">
+
+
+</f:section>
+</div>
