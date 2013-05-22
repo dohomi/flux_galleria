@@ -1,0 +1,16 @@
+plugin.tx_fluxgalleria {
+	view {
+		# cat=plugin.tx_fluxgalleria/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:flux_galleria/Resources/Private/Templates/
+		# cat=plugin.tx_fluxgalleria/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:flux_galleria/Resources/Private/Partials/
+		# cat=plugin.tx_fluxgalleria/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:flux_galleria/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_fluxgalleria//a; type=string; label=Default storage PID
+		storagePid =
+	}
+
+}
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

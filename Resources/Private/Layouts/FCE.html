@@ -1,0 +1,11 @@
+{namespace t=Tx_FluxGalleria_ViewHelpers_PageRenderer}
+
+<t:includeFile file="EXT:flux_galleria/Resources/Public/Js/galleria/galleria-1.2.8.min.js" footer="true"/>
+<t:includeFile file="EXT:flux_galleria/Resources/Public/Js/galleria/themes/classic/galleria.classic.min.js" footer="true"/>
+<t:includeFile file="EXT:flux_galleria/Resources/Public/Js/galleria/themes/classic/galleria.classic.css" footer="true"/>
+
+<f:if condition="{history}">
+	<t:includeFile file="EXT:dmf_template/Resources/Public/Js/galleria/plugins/history/galleria.history.min.js" footer="true"/>
+</f:if>
+
+<f:render section="Main"/>
