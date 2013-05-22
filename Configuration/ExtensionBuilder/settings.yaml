@@ -1,6 +1,10 @@
 #
 # Extension Builder settings for extension flux_galleria
+<<<<<<< HEAD
 # generated 2013-05-22
+=======
+# generated 2013-01-07
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 #
 # See http://www.yaml.org/spec/1.2/spec.html
 #
@@ -45,8 +49,13 @@ overwriteSettings:
       Repository: merge
 
   Configuration:
+<<<<<<< HEAD
     TCA: merge
     TypoScript: merge
+=======
+    #TCA: merge
+    #TypoScript: keep
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 
   Resources:
     Private:
@@ -57,9 +66,15 @@ overwriteSettings:
 
   ext_icon.gif: keep
 
+<<<<<<< HEAD
   ext_localconf.php: merge
 
   ext_tables.php: merge
+=======
+#  ext_localconf.php: merge
+
+#  ext_tables.php: merge
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 
 #  ext_tables.sql: merge
 

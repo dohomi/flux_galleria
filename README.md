@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 TYPO3 extension Galleria - includes image and video gallery based on flux and fluidcontent
+=======
+TYPO3 extension Galleria - includes Galleria image and video gallery based on flux and fluidcontent
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 =================================================================================================
 
 ## What is it?
 
+<<<<<<< HEAD
 A fully featured image and video gallery oriented Fluid Content Elements written with the help of EXT: 'flux'. The JavaScript framework is build by the team of http://galleria.io/
+=======
+A fully featured image and video gallery oriented Fluid Content Elements written for 'EXT:fluidcontent' and EXT: 'flux'. The JavaScript framework is build by the team of http://galleria.io/
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 
 ## What does it do?
 
@@ -11,7 +19,11 @@ Provides the template files and TypoScript setup necessary to use the gallery el
 
 ## How does it do it?
 
+<<<<<<< HEAD
 Its mainly flux configuration which gets transformed into flexform - this enables use of specially constructed Fluid templates as
+=======
+By leveraging the integration logic provided by 'EXT:fluidcontent' - enabling use of specially constructed Fluid templates as
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 content elements, much like the Flexible Content Elements concept from TemplaVoila.
 
 ## How is it installed?
@@ -31,6 +43,10 @@ All docs for customization of the gallery can be found at http://galleria.io/doc
 
 ## References
 
+<<<<<<< HEAD
+=======
+* https://github.com/NamelessCoder/fluidcontent is a dependency - it is the integration necessary to render Fluid Content Elements
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 * https://github.com/NamelessCoder/flux is a dependency - it is the integration necessary to render Fluid Content Elements
 * http://galleria.io is the link to the Galleria JavaScript-Framework
 

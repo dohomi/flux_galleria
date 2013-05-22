@@ -11,6 +11,7 @@
 Extension Name
 =================
 
+<<<<<<< HEAD
 :Extension name: Galleria extension for TYPO3 CMS.
 :Extension key: flux_galleria
 :Version: 
@@ -19,6 +20,16 @@ Extension Name
 :Author: Dominic Garms
 :Creation: 2013-05-22
 :Generation: 16:33
+=======
+:Extension name: Galleria picture and video gallery
+:Extension key: flux_galleria
+:Version: 
+:Description: manuals covering TYPO3 extension "Galleria picture and video gallery"
+:Language: en
+:Author: 
+:Creation: 2013-01-07
+:Generation: 13:38
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 :Licence: Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
 
 The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
+<<<<<<< HEAD
 	<file source-language="en" datatype="plaintext" original="messages" date="2013-05-22T16:33:56Z" product-name="flux_galleria">
+=======
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-01-07T13:38:23Z" product-name="flux_galleria">
+>>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
 		<header/>
 		<body>
 
