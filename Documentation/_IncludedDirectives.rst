@@ -1,4 +1,4 @@
-﻿..  Content substitution
+﻿﻿..  Content substitution
 	...................................................
 	Hint: following expression |my_substition_value| will be replaced when rendering doc.
 

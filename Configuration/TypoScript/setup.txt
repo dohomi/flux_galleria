@@ -36,9 +36,5 @@ plugin.tx_fluxgalleria._CSS_DEFAULT_STYLE (
 	.tx-flux-galleria table td {
 		vertical-align:top;
 	}
-<<<<<<< HEAD
 )
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-=======
-)
->>>>>>> 1059c984c281503b25f29ae02aaea14612a74af1
