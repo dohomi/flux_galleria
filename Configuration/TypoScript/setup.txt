@@ -1,0 +1,40 @@
+plugin.tx_fluxgalleria {
+	view {
+		templateRootPath = {$plugin.tx_fluxgalleria.view.templateRootPath}
+		partialRootPath = {$plugin.tx_fluxgalleria.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_fluxgalleria.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_fluxgalleria.persistence.storagePid}
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+}
+
+plugin.tx_fluxgalleria._CSS_DEFAULT_STYLE (
+	textarea.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-flux-galleria table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-flux-galleria table th {
+		font-weight:bold;
+	}
+
+	.tx-flux-galleria table td {
+		vertical-align:top;
+	}
+)
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
