@@ -1,6 +1,8 @@
 <?php
 namespace DMF\FluxGalleria\Provider;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class PluginConfigurationProvider
  *
@@ -12,38 +14,47 @@ class PluginConfigurationProvider extends \Tx_Flux_Provider_AbstractPluginConfig
 	/**
 	 * @var string
 	 */
-	public $extensionKey = 'flux_galleria';
+	protected $extensionKey = 'flux_galleria';
 
 	/**
 	 * @var string
 	 */
-	public $listType = 'fluxgalleria_frontend';
+	protected $listType = 'fluxgalleria_frontend';
 
 	/**
 	 * @var array
 	 */
-	public $templateVariables = array();
+	protected $templateVariables = array();
 
 	/**
 	 * @var array
 	 */
-	public $templatePaths = array(
+	protected $templatePaths = array(
 		'templateRootPath' => 'EXT:flux_galleria/Resources/Private/Templates/',
-		'partialRootPath' => 'EXT:flux_galleria/Resources/Private/Partials/',
-		'layoutRootPath' => 'EXT:flux_galleria/Resources/Private/Layouts/',
+		'partialRootPath'  => 'EXT:flux_galleria/Resources/Private/Partials/',
+		'layoutRootPath'   => 'EXT:flux_galleria/Resources/Private/Layouts/',
 	);
 
 	/**
 	 * @var string
 	 */
-	public $configurationSectionName = 'Configuration';
-
+	protected $configurationSectionName = 'Configuration';
 
 
 	/**
 	 * @var string
 	 */
-	public $templatePathAndFilename = 'EXT:flux_galleria/Resources/Private/Templates/Galleria/Index.html';
+	protected $templatePathAndFilename = 'EXT:flux_galleria/Resources/Private/Templates/Galleria/Index.html';
 
+	/**
+	 * @param array $row
+	 * @return string|NULL
+	 */
+	public function getTemplatePathAndFilename(array $row) {
+		unset($row);
+		$this->templatePathAndFilename = GeneralUtility::getFileAbsFileName($this->templatePathAndFilename);
+		return $this->templatePathAndFilename;
+	}
 }
+
 ?>

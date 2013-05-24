@@ -137,7 +137,12 @@
 <f:section name="Preview">
     Total <b>
     <f:if condition="{items}">
-        <f:count subject="{items}"/>
+        <f:then>
+            <f:count subject="{items}"/>
+        </f:then>
+        <f:else>
+            0
+        </f:else>
     </f:if>
 </b> gallery elements included.
 </f:section>
