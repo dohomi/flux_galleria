@@ -123,6 +123,7 @@ class GalleriaController extends ActionController {
 	 * @return void
 	 */
 	private function getPageRendererAddFile($fileObj) {
+
 		if (is_array($fileObj)) {
 			$file = $GLOBALS['TSFE']->tmpl->getFileName($fileObj['_typoScriptNodeValue']);
 		} else {
@@ -158,41 +159,7 @@ class GalleriaController extends ActionController {
 	}
 
 	private function addJsInlineCode() {
-		/*
-		$block = '
-		var GalleriaOptions = {
-			thumbnails: {thumbnails},
-			height: {height},
-			width: {width},
-			<f:if condition="{maxScaleRatio}">
-				maxScaleRatio: {maxScaleRatio},
-		</f:if>
-		<f:if condition="{minScaleRatio}">
-					minScaleRatio: {minScaleRatio},
-		</f:if>
-		imagePosition: "{imagePosition}",
-		imageCrop: {imageCrop},
-		show: {show},
-		showCounter: {showCounter},
-		showInfo: {showInfo},
-		showImagenav: {showImagenav},
-		lightbox: {lightbox},
-		lightboxFadeSpeed: {lightboxFadeSpeed},
-		lightboxTransitionSpeed: {lightboxTransitionSpeed},
-		overlayBackground: "{overlayBackground}",
-		overlayOpacity: {overlayOpacity},
-		carousel: {carousel},
-		carouselSpeed: {carouselSpeed},
-		carouselSteps: {carouselSteps},
-		transition: {transition},
-		popupLinks: {popupLinks},
-		responsive: {responsive},
-		imagePan: {imagePan},
-		{js-option}
-		debug: {debug}
-		}
-		';
-		*/
+
 		$options = array();
 		foreach ($this->settings['tsConfig'] as $key => $tsValue) {
 			if ($tsValue && $tsValue != 'default') {
@@ -206,7 +173,7 @@ class GalleriaController extends ActionController {
 		}
 
 		$block = '
-			var GalleriaOptions = {
+			var GalleriaOptions_' . $this->record['uid'] . ' = {
 				' . implode(',', $options) . '
 			};
 		';
@@ -219,7 +186,7 @@ class GalleriaController extends ActionController {
 //		';
 
 		$block .= '
-			Galleria.configure(GalleriaOptions);
+			Galleria.configure(GalleriaOptions_' . $this->record['uid'] . ');
 			Galleria.run("#galleria_' . $this->record['uid'] . '");
 		';
 
@@ -251,6 +218,21 @@ class GalleriaController extends ActionController {
 	 */
 	private function addPicasaCode($item, $iteration) {
 
+		$block = '
+			var PicasaConfig_' . $this->record['uid'] . '_' . $iteration . ' = {
+				max: ' . $item['max_picasa'] . ',
+				imageSize: "' . $item['imageSize_picasa'] . '",
+                thumbSize: "' . $item['thumbSize_picasa'] . '"
+			}
+
+			var picasa = new Galleria.Picasa();
+			picasa.setOptions(PicasaConfig_' . $this->record['uid'] . '_' . $iteration . ' );
+            picasa.' . $item['picasa_method'] . '("' . $item['picasa'] . '", function (data) {
+				Galleria.get(0).push(data);
+			});
+		';
+
+		$this->pageRenderer->addJsFooterInlineCode('galleriaPicasa_' . $this->record['uid'] . '_' . $iteration, $block);
 	}
 
 	/**
@@ -262,7 +244,7 @@ class GalleriaController extends ActionController {
 	private function addFlickrCode($item, $iteration) {
 
 		$block = '
-			var FlickrConfig_' . $iteration . ' = {
+			var FlickrConfig_' . $this->record['uid'] . '_' . $iteration . ' = {
 				max: ' . $item['max_flickr'] . ',
 				imageSize: "' . $item['imageSize_flickr'] . '",
                 thumbSize: "' . $item['thumbSize_flickr'] . '",
@@ -271,13 +253,13 @@ class GalleriaController extends ActionController {
 			}
 
 			var flickr = new Galleria.Flickr();
-			flickr.setOptions(FlickrConfig_' . $iteration . ' );
+			flickr.setOptions(FlickrConfig_' . $this->record['uid'] . '_' . $iteration . ' );
             flickr.' . $item['flickr_method'] . '("' . $item['flickr'] . '", function (data) {
 				Galleria.get(0).push(data);
 			});
 		';
 
-		$this->pageRenderer->addJsFooterInlineCode('galleriaFlickr_' . $iteration, $block);
+		$this->pageRenderer->addJsFooterInlineCode('galleriaFlickr_' . $this->record['uid'] . '_' . $iteration, $block);
 	}
 }
 
