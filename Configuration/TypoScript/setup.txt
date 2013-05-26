@@ -38,3 +38,64 @@ plugin.tx_fluxgalleria._CSS_DEFAULT_STYLE (
 	}
 )
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
+
+plugin.tx_fluxgalleria.settings {
+	files {
+	  galleriaMain = EXT:flux_galleria/Resources/Public/Js/galleria/galleria-1.2.8.min.js
+	  galleriaMain.library = 1
+	  galleriaMain.footer = 1
+	  galleriaTheme = EXT:flux_galleria/Resources/Public/Js/galleria/themes/classic/galleria.classic.min.js
+	  galleriaTheme.library = 1
+	  galleriaTheme.footer = 1
+	  galleriaThemeCss = EXT:flux_galleria/Resources/Public/Js/galleria/themes/classic/galleria.classic.css
+	  galleriaHistoryPlugin = EXT:flux_galleria/Resources/Public/Js/galleria/plugins/history/galleria.history.min.js
+	  galleriaHistoryPlugin.library = 1
+	  galleriaHistoryPlugin.footer = 1
+	  galleriaFlickrPlugin = EXT:flux_galleria/Resources/Public/Js/galleria/plugins/flickr/galleria.flickr.min.js
+	  galleriaFlickrPlugin.library = 1
+	  galleriaFlickrPlugin.footer = 1
+	  galleriaPicasaPlugin = EXT:flux_galleria/Resources/Public/Js/galleria/plugins/picasa/galleria.picasa.min.js
+	  galleriaPicasaPlugin.library = 1
+	  galleriaPicasaPlugin.footer = 1
+	}
+
+	tsConfig {
+        width = {$plugin.tx_fluxgalleria.settings.tsConfig.width}
+        height = {$plugin.tx_fluxgalleria.settings.tsConfig.height}
+        imageMargin = {$plugin.tx_fluxgalleria.settings.tsConfig.imageMargin}
+        imagePosition = {$plugin.tx_fluxgalleria.settings.tsConfig.imagePosition}
+        maxScaleRatio = {$plugin.tx_fluxgalleria.settings.tsConfig.maxScaleRatio}
+        imagePan = {$plugin.tx_fluxgalleria.settings.tsConfig.imagePan}
+        pauseOnInteraction = {$plugin.tx_fluxgalleria.settings.tsConfig.pauseOnInteraction}
+        showCounter = {$plugin.tx_fluxgalleria.settings.tsConfig.showCounter}
+        showImagenav = {$plugin.tx_fluxgalleria.settings.tsConfig.showImagenav}
+        showInfo = {$plugin.tx_fluxgalleria.settings.tsConfig.showInfo}
+        easing = {$plugin.tx_fluxgalleria.settings.tsConfig.easing}
+        imageCrop = {$plugin.tx_fluxgalleria.settings.tsConfig.imageCrop}
+        imagePanSmoothness = {$plugin.tx_fluxgalleria.settings.tsConfig.imagePanSmoothness}
+        show = {$plugin.tx_fluxgalleria.settings.tsConfig.show}
+        autoplay = {$plugin.tx_fluxgalleria.settings.tsConfig.autoplay}
+        transitions = {$plugin.tx_fluxgalleria.settings.tsConfig.transitions}
+        initialTransition = {$plugin.tx_fluxgalleria.settings.tsConfig.initialTransition}
+        transitionSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.transitionSpeed}
+        carousel = {$plugin.tx_fluxgalleria.settings.tsConfig.carousel}
+        layerFollow = {$plugin.tx_fluxgalleria.settings.tsConfig.layerFollow}
+        clicknext = {$plugin.tx_fluxgalleria.settings.tsConfig.clicknext}
+        carouselSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.carouselSpeed}
+        carouselSteps = {$plugin.tx_fluxgalleria.settings.tsConfig.carouselSteps}
+        thumbnails = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbnails}
+        thumbQuality = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbQuality}
+        popupLinks = {$plugin.tx_fluxgalleria.settings.tsConfig.popupLinks}
+        thumbCrop = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbCrop}
+        thumbMargin = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbMargin}
+        lightbox = {$plugin.tx_fluxgalleria.settings.tsConfig.lightbox}
+        overlayOpacity = {$plugin.tx_fluxgalleria.settings.tsConfig.overlayOpacity}
+        overlayBackground = {$plugin.tx_fluxgalleria.settings.tsConfig.overlayBackground}
+        lightboxFadeSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.lightboxFadeSpeed}
+        lightboxTransitionSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.lightboxTransitionSpeed}
+        debug = {$plugin.tx_fluxgalleria.settings.tsConfig.debug}
+        extends = {$plugin.tx_fluxgalleria.settings.tsConfig.extends}
+        wait = {$plugin.tx_fluxgalleria.settings.tsConfig.wait}
+	}
+}
+
