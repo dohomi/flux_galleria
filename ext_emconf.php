@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Galleria extension for TYPO3 CMS.',
-	'description' => 'Galleria extension with powerful image and video setup. Requires \'flux\' and works only on TYPO3 6.x versions because of the use of namespacing and heavy extbase & fluid functionalities. This extension is the successor of \'dmf_galleria\'.',
+	'description' => 'Galleria extension with powerful image and video setup. Requires \'flux\' and works only on TYPO3 6.x version. This extension is the successor of \'dmf_galleria\'.',
 	'category' => 'plugin',
 	'author' => 'Dominic Garms',
 	'author_email' => 'djgarms@gmail.com',
@@ -33,6 +33,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'extbase' => '6.0',
 			'fluid' => '6.0',
 			'typo3' => '6.0',
+			'flux' => '',
 		),
 		'conflicts' => array(
 		),
