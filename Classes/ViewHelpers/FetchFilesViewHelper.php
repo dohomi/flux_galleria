@@ -1,4 +1,15 @@
 <?php
+namespace DMF\FluxGalleria\ViewHelpers;
+
+/**
+ * @author     Dominic Garms, DMFmedia GmbH
+ * @package    dmf_template
+ * @subpackage ViewHelpers/PageRenderer
+ */
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -22,14 +33,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-/**
- * @author Dominic Garms, DMFmedia GmbH
- * @package dmf_template
- * @subpackage ViewHelpers/PageRenderer
- */
-
-class Tx_FluxGalleria_ViewHelpers_FetchFilesViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
+class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
 
 
 	/**
@@ -38,7 +42,6 @@ class Tx_FluxGalleria_ViewHelpers_FetchFilesViewHelper extends Tx_Fluid_Core_Vie
 	public function initializeArguments() {
 		$this->registerArgument('dir', 'string', 'Directory from where to fetch files', TRUE, FALSE);
 		$this->registerArgument('extension', 'mixed', 'Comma separated list of file extensions which are allowed', TRUE, FALSE);
-
 	}
 
 	/**
@@ -50,7 +53,7 @@ class Tx_FluxGalleria_ViewHelpers_FetchFilesViewHelper extends Tx_Fluid_Core_Vie
 
 		// add here the backup variables for the container
 		$backupVars = array('files');
-		$backups = array();
+		$backups    = array();
 		foreach ($backupVars as $var) {
 			if ($this->templateVariableContainer->exists($var)) {
 				$backups[$var] = $this->templateVariableContainer->get($var);
@@ -78,11 +81,12 @@ class Tx_FluxGalleria_ViewHelpers_FetchFilesViewHelper extends Tx_Fluid_Core_Vie
 	 *
 	 *
 	 * @param string $dir
+	 *
 	 * @return array
 	 */
 	protected function getFilenamesOfType($dir) {
-		$allowedExtension = t3lib_div::trimExplode(',', $this->arguments['extension']);
-		$relative = $dir;
+		$allowedExtension = GeneralUtility::trimExplode(',', $this->arguments['extension']);
+		$relative         = $dir;
 		if (substr($dir, 0, 1) != '/') {
 			$dir = PATH_site . $dir;
 		}
@@ -107,7 +111,7 @@ class Tx_FluxGalleria_ViewHelpers_FetchFilesViewHelper extends Tx_Fluid_Core_Vie
 			return $files;
 		}
 
-		return false;
+		return FALSE;
 
 	}
 
