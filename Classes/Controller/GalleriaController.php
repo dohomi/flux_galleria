@@ -107,9 +107,13 @@ class GalleriaController extends ActionController {
 			} elseif ($key == 'galleriaPicasaPlugin' && !$this->hasPicasaElement) {
 				continue;
 			} elseif ($key == 'galleriaHistoryPlugin' && (!$this->settings['enable']['history'] || !$this->settings['tsEnable']['history'])) {
-				continue;
+				$tsHistory   = $this->settings['tsEnable']['history'];
+				$flexHistory = $this->settings['enable']['history'];
+				if (($tsHistory == 'true' && $flexHistory != 'false') || $flexHistory == 'true') {
+					$this->addFilePageRenderer($file);
+				}
 			} else {
-				$this->getPageRendererAddFile($file);
+				$this->addFilePageRenderer($file);
 			}
 		}
 
@@ -122,7 +126,7 @@ class GalleriaController extends ActionController {
 	 *
 	 * @return void
 	 */
-	private function getPageRendererAddFile($fileObj) {
+	private function addFilePageRenderer($fileObj) {
 
 		if (is_array($fileObj)) {
 			$file = $GLOBALS['TSFE']->tmpl->getFileName($fileObj['_typoScriptNodeValue']);
@@ -158,6 +162,9 @@ class GalleriaController extends ActionController {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	private function addJsInlineCode() {
 
 		$options = array();
@@ -171,14 +178,17 @@ class GalleriaController extends ActionController {
 				$options[] = $key . ':' . $this->escapeJsOption($tsValue);
 			}
 		}
+		// add additionalconfig from flexform
+		if ($this->settings['additionalconfig']['js']) {
+			$options[] = rtrim($this->settings['additionalconfig']['js'], ',');
+		}
 
 		$block = '
 			var GalleriaOptions_' . $this->record['uid'] . ' = {
 				' . implode(',', $options) . '
 			};
 		';
-		// test
-
+//		test
 //		$block = '
 //			var GalleriaOptions = {
 //				width:611,height:250
