@@ -39,7 +39,6 @@ plugin.tx_fluxgalleria.settings {
 
     tsConfig {
 
-
         # cat=FluxGalleria Setup/dims/030; type=string; label=Gallery width: Width of the gallery
         width = 500
 
