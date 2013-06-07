@@ -28,11 +28,11 @@ plugin.tx_fluxgalleria.settings {
     }
 
     tsScale {
-            # cat=FluxGalleria Setup/dims/010; type=string; label=Default scale thumb-width: default: 54 (thumb_image_scale_pictures has to be set).
-            thumbWidth = 63
+        # cat=FluxGalleria Setup/dims/010; type=string; label=Default scale thumb-width: default: 54 (thumb_image_scale_pictures has to be set).
+        thumbWidth = 63
 
-            # cat=FluxGalleria Setup/dims/020; type=string; label=Default scale thumb-height: default: 40 (thumb_image_scale_pictures has to be set).
-            thumbHeight = 27
+        # cat=FluxGalleria Setup/dims/020; type=string; label=Default scale thumb-height: default: 40 (thumb_image_scale_pictures has to be set).
+        thumbHeight = 27
     }
 
 
