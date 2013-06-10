@@ -33,6 +33,11 @@ class GalleriaController extends ActionController {
 	protected $record = array();
 
 	/**
+	 * @var array
+	 */
+	protected $options = array();
+
+	/**
 	 * @var bool
 	 */
 	protected $hasFlickrElement = FALSE;
@@ -132,15 +137,23 @@ class GalleriaController extends ActionController {
 			$file = $GLOBALS['TSFE']->tmpl->getFileName($fileObj['_typoScriptNodeValue']);
 		} else {
 			$file = $GLOBALS['TSFE']->tmpl->getFileName($fileObj);
-
 		}
 		$includeFunctionName = 'add';
-		$funcArgumentList    = array();
+
+		$excludeFromConcatenation = ($fileObj['excludeFromConcatenation'] == 1) ? TRUE : FALSE;
+		$compress                 = ($fileObj['compress'] == 1) ? TRUE : FALSE;
+		$funcArgumentList         = array(
+			$compress,
+			$forceOnTop = FALSE,
+			$allWrap = '',
+			$excludeFromConcatenation
+		);
 		if ($file) {
 
 			// JS
 			if (strtolower(substr($file, -3)) === '.js') {
 				$includeFunctionName .= 'Js';
+				array_unshift($funcArgumentList, $type = 'text/javascript');
 				array_unshift($funcArgumentList, $file);
 				if ($fileObj['footer']) {
 					$includeFunctionName .= 'Footer';
@@ -154,10 +167,12 @@ class GalleriaController extends ActionController {
 			} // CSS
 			elseif (strtolower(substr($file, -4)) === '.css') {
 				$includeFunctionName .= 'CssFile';
+				array_unshift($funcArgumentList, $title = '');
+				array_unshift($funcArgumentList, $media = 'all');
+				array_unshift($funcArgumentList, $rel = 'stylesheet');
 				array_unshift($funcArgumentList, $file);
 
 			}
-
 			call_user_func_array(array($GLOBALS['TSFE']->getPageRenderer(), $includeFunctionName), $funcArgumentList);
 		}
 	}
@@ -167,37 +182,35 @@ class GalleriaController extends ActionController {
 	 */
 	private function addJsInlineCode() {
 
-		$options = array();
 		foreach ($this->settings['tsConfig'] as $key => $tsValue) {
-			if ($tsValue && $tsValue != 'default') {
+			if ($tsValue) {
 				$flexValue = $this->settings['config'][$key];
 				// check the values from flexform and overwrite ts
 				if ($flexValue && $flexValue != 'default') {
 					$tsValue = $flexValue;
 				}
-				$options[] = $key . ':' . $this->escapeJsOption($tsValue);
+				// set $this->options array
+				if ($tsValue != 'default') {
+					$this->escapeJsOption($key, $tsValue);
+				}
 			}
 		}
 		// add additionalconfig from flexform
 		if ($this->settings['additionalconfig']['js']) {
-			$options[] = rtrim($this->settings['additionalconfig']['js'], ',');
+			$this->options[] = rtrim($this->settings['additionalconfig']['js'], ',');
 		}
 
 		$block = '
 			var GalleriaOptions_' . $this->record['uid'] . ' = {
-				' . implode(',', $options) . '
+				' . implode(',', $this->options) . '
 			};
 		';
-//		test
-//		$block = '
-//			var GalleriaOptions = {
-//				width:611,height:250
-//			};
-//		';
 
+		$galleriaId = '#galleria_' . $this->record['uid'];
 		$block .= '
-			Galleria.configure(GalleriaOptions_' . $this->record['uid'] . ');
-			Galleria.run("#galleria_' . $this->record['uid'] . '");
+			var galleria = Galleria;
+			galleria.configure(GalleriaOptions_' . $this->record['uid'] . ');
+			galleria.run("' . $galleriaId . '");
 		';
 
 		$this->pageRenderer->addJsFooterInlineCode('galleria_' . $this->record['uid'], $block);
@@ -205,17 +218,20 @@ class GalleriaController extends ActionController {
 	}
 
 	/**
+	 * This function sets the JS option array according to its type
+	 *
+	 * @param $key
 	 * @param $option
 	 *
-	 * @return string
+	 * @return void
 	 */
-	private function escapeJsOption($option) {
+	private function escapeJsOption($key, $option) {
 		if (is_numeric($option) || $option == 'true' || $option == 'false') {
-			return $option;
+			$this->options[] = $key . ':' . $option;
 		} else {
 			$option = str_replace(array("'", '"'), array('', ''), $option);
 
-			return '"' . $option . '"';
+			$this->options[] = $key . ':' . '"' . $option . '"';
 		}
 	}
 
@@ -229,16 +245,13 @@ class GalleriaController extends ActionController {
 	private function addPicasaCode($item, $iteration) {
 
 		$block = '
-			var PicasaConfig_' . $this->record['uid'] . '_' . $iteration . ' = {
+			var picasa = new Galleria.Picasa();
+			picasa.setOptions({
 				max: ' . $item['max_picasa'] . ',
 				imageSize: "' . $item['imageSize_picasa'] . '",
                 thumbSize: "' . $item['thumbSize_picasa'] . '"
-			}
-
-			var picasa = new Galleria.Picasa();
-			picasa.setOptions(PicasaConfig_' . $this->record['uid'] . '_' . $iteration . ' );
-            picasa.' . $item['picasa_method'] . '("' . $item['picasa'] . '", function (data) {
-				Galleria.get(0).push(data);
+			}).' . $item['picasa_method'] . '("' . $item['picasa'] . '", function (data) {
+				galleria.get(0).push(data);
 			});
 		';
 
@@ -254,18 +267,15 @@ class GalleriaController extends ActionController {
 	private function addFlickrCode($item, $iteration) {
 
 		$block = '
-			var FlickrConfig_' . $this->record['uid'] . '_' . $iteration . ' = {
+			var flickr = new Galleria.Flickr();
+			flickr.setOptions({
 				max: ' . $item['max_flickr'] . ',
 				imageSize: "' . $item['imageSize_flickr'] . '",
                 thumbSize: "' . $item['thumbSize_flickr'] . '",
                 sort: "' . $item['sort_flickr'] . '",
                 description: ' . $item['description_flickr'] . '
-			}
-
-			var flickr = new Galleria.Flickr();
-			flickr.setOptions(FlickrConfig_' . $this->record['uid'] . '_' . $iteration . ' );
-            flickr.' . $item['flickr_method'] . '("' . $item['flickr'] . '", function (data) {
-				Galleria.get(0).push(data);
+			}).' . $item['flickr_method'] . '("' . $item['flickr'] . '", function (data) {
+				galleria.get(0).push(data);
 			});
 		';
 

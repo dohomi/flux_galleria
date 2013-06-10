@@ -48,14 +48,14 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/dims/050; type=string; label=Image margin: Sets margin for the main picture
         imageMargin = 0
 
-        # cat=FluxGalleria Setup/dims/060; type=string; label=Image position: Sets the position like "top left" or "20% 100%"
-        imagePosition = center
+        # cat=FluxGalleria Setup/dims/060; type=string; label=Image position: Sets the position like "top left" or "20% 100%" (default: center)
+        imagePosition =
 
         # cat=FluxGalleria Setup/dims/070; type=string; label=Maximum scale rate: Set 1 for no scale, default: scaling. Example: 0,6
         maxScaleRatio =
 
-        # cat=FluxGalleria Setup/dims/080; type=options[true,false,height,width]; label=Thumbnail crop: Same as image_crop, fits thumbnail width/height
-        thumbCrop = false
+        # cat=FluxGalleria Setup/dims/080; type=options[default,true,false,height,width]; label=Thumbnail crop: Same as image_crop, fits thumbnail width/height (default: true)
+        thumbCrop = default
 
         # cat=FluxGalleria Setup/dims/090; type=string; label=Thumbnail margin: Margin for the thumbnails
         thumbMargin =
@@ -71,11 +71,11 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/enable/030; type=options[default,true,false]; label=Enable debug: turn on if any troubles with loading galleria
         debug = default
 
-        # cat=FluxGalleria Setup/enable/040; type=options[galleria,galleriaIn,galleriaOut,swing,linear,Quad,Cubic,Quart,Quint,Sine,Expo,Circ,Back,Bounce,Elastic]; label=Easing:
-        easing = galleria
+        # cat=FluxGalleria Setup/enable/040; type=options[default,galleria,galleriaIn,galleriaOut,swing,linear,Quad,Cubic,Quart,Quint,Sine,Expo,Circ,Back,Bounce,Elastic]; label=Easing: (default: galleria)
+        easing = default
 
-        # cat=FluxGalleria Setup/enable/050; type=options[true,false,height,width]; label=Image crop: Defines how the main image will be cropped inside it's container.
-        imageCrop = false
+        # cat=FluxGalleria Setup/enable/050; type=options[default,true,false,height,width]; label=Image crop: Defines how the main image will be cropped inside it's container.
+        imageCrop = default
 
         # cat=FluxGalleria Setup/enable/060; type=options[default,true,false]; label=Image pan: Useful for design pages
         imagePan = default
@@ -109,26 +109,26 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/basic/020; type=string; label=Carousel speed: Speed of each carousel cycle (default: 200)
         carouselSpeed =
 
-        # cat=FluxGalleria Setup/basic/030; type=string; label=Carousel steps: Steps for each carousel click
-        carouselSteps = 2
+        # cat=FluxGalleria Setup/basic/030; type=string; label=Carousel steps: Steps for each carousel click: integer or auto (default: auto)
+        carouselSteps =
 
-        # cat=FluxGalleria Setup/basic/040; type=string; label=Image pan smoothness: Sets the smoothness of the pan (if set to "true")
-        imagePanSmoothness = 12
+        # cat=FluxGalleria Setup/basic/040; type=string; label=Image pan smoothness: Sets the smoothness of the pan (default: 12)
+        imagePanSmoothness =
 
         # cat=FluxGalleria Setup/basic/050; type=string; label=Start with picture: Number of picture which should start
         show = 0
 
-        # cat=FluxGalleria Setup/basic/060; type=options[true,empty,numbers,false]; label=Show thumbnails: If set it renders thumbnails.
-        thumbnails = true
+        # cat=FluxGalleria Setup/basic/060; type=options[default,true,empty,numbers,false]; label=Show thumbnails: If set it renders thumbnails. (default: true)
+        thumbnails = default
 
-        # cat=FluxGalleria Setup/basic/070; type=options[true,false,auto]; label=Thumbnail quality: Defines if and how IE should use bicubic image rendering for thumbnails.
-        thumbQuality = true
+        # cat=FluxGalleria Setup/basic/070; type=options[default,true,false,auto]; label=Thumbnail quality: Defines if and how IE should use bicubic image rendering for thumbnails. (default: true)
+        thumbQuality = default
 
-        # cat=FluxGalleria Setup/basic/080; type=options[fade,flash,pulse,slide,fadeslide]; label=Transition of the main images
-        transitions = fade
+        # cat=FluxGalleria Setup/basic/080; type=options[default,fade,flash,pulse,slide,fadeslide]; label=Transition of the main images (default: fade)
+        transitions = default
 
-        # cat=FluxGalleria Setup/basic/090; type=options[fade,flash,pulse,slide,fadeslide]; label=Transition for the first image
-        initialTransition = fade
+        # cat=FluxGalleria Setup/basic/090; type=options[default,fade,flash,pulse,slide,fadeslide]; label=Transition for the first image (default: fade)
+        initialTransition = default
 
         # cat=FluxGalleria Setup/basic/100; type=string; label=Transition speed: Transition speed for the image gallery in milliseconds (default: 400)
         transitionSpeed =
