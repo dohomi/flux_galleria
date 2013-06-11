@@ -75,6 +75,12 @@ class GalleriaController extends ActionController {
 		// add galleria files
 		$this->addFiles();
 
+		// set scale for images
+		$scaleArray = array('thumbWidth', 'thumbHeight', 'width', 'height');
+		foreach ($scaleArray as $dim) {
+			$this->settings['scale'][$dim] = ($this->settings['scale'][$dim]) ? $this->settings['scale'][$dim] : $this->settings['tsScale'][$dim];
+		}
+
 		$this->view->assign('record', $this->record);
 		$this->view->assign('settings', $this->settings);
 		$this->configurationManager->getContentObject()->data;
@@ -111,7 +117,7 @@ class GalleriaController extends ActionController {
 				continue;
 			} elseif ($key == 'galleriaPicasaPlugin' && !$this->hasPicasaElement) {
 				continue;
-			} elseif ($key == 'galleriaHistoryPlugin' && (!$this->settings['enable']['history'] || !$this->settings['tsEnable']['history'])) {
+			} elseif ($key == 'galleriaHistoryPlugin') {
 				$tsHistory   = $this->settings['tsEnable']['history'];
 				$flexHistory = $this->settings['enable']['history'];
 				if (($tsHistory == 'true' && $flexHistory != 'false') || $flexHistory == 'true') {
@@ -197,20 +203,15 @@ class GalleriaController extends ActionController {
 		}
 		// add additionalconfig from flexform
 		if ($this->settings['additionalconfig']['js']) {
-			$this->options[] = rtrim($this->settings['additionalconfig']['js'], ',');
+			$this->options[] = rtrim(preg_replace('/\s+/', ' ', $this->settings['additionalconfig']['js']), ',');
 		}
 
 		$block = '
-			var GalleriaOptions_' . $this->record['uid'] . ' = {
-				' . implode(',', $this->options) . '
-			};
-		';
-
-		$galleriaId = '#galleria_' . $this->record['uid'];
-		$block .= '
 			var galleria = Galleria;
-			galleria.configure(GalleriaOptions_' . $this->record['uid'] . ');
-			galleria.run("' . $galleriaId . '");
+			galleria.configure({
+				' . implode(',', $this->options) . '
+			});
+			galleria.run("#galleria_' . $this->record['uid'] . '");
 		';
 
 		$this->pageRenderer->addJsFooterInlineCode('galleria_' . $this->record['uid'], $block);
@@ -228,6 +229,8 @@ class GalleriaController extends ActionController {
 	private function escapeJsOption($key, $option) {
 		if (is_numeric($option) || $option == 'true' || $option == 'false') {
 			$this->options[] = $key . ':' . $option;
+		} elseif ($key == 'extend') {
+			$this->options[] = $key . ':' . trim(preg_replace('/\s+/', ' ', $option));
 		} else {
 			$option = str_replace(array("'", '"'), array('', ''), $option);
 

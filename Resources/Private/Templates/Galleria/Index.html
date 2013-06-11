@@ -218,16 +218,16 @@
                     <f:then>
                         <a href="<f:uri.image src='{single.item.thumb}' maxWidth='{settings.config.width}' maxHeight='{settings.config.height}' />">
                             <f:image src="{single.item.original}"
-                                     alt="{single.item.title}" maxWidth="{settings.scale.thumbWidth}"
-                                     maxHeight="{settings.scale.thumbHeight}"
+                                     alt="{single.item.title}" width="{settings.scale.thumbWidth}"
+                                     height="{settings.scale.thumbHeight}"
                                      additionalAttributes="{data-big: '{single.item.original}', data-title: '{single.item.title}', data-description: '{single.item.description}', data-link: '<f:uri.page pageUid=\'{single.item.link}\'/>'}"/>
                         </a>
                     </f:then>
                     <f:else>
                         <a href="<f:uri.image src='{single.item.original}' maxWidth='{settings.config.width}' maxHeight='{settings.config.height}' />">
                             <f:image src="{single.item.original}"
-                                     alt="{single.item.title}" maxWidth="{settings.scale.thumbWidth}"
-                                     maxHeight="{settings.scale.thumbHeight}"
+                                     alt="{single.item.title}" width="{settings.scale.thumbWidth}"
+                                     height="{settings.scale.thumbHeight}"
                                      additionalAttributes="{data-big: '{single.item.original}', data-title: '{single.item.title}', data-description: '{single.item.description}', data-link: '<f:uri.page pageUid=\'{single.item.link}\'/>'}"/>
                         </a>
                     </f:else>
@@ -239,7 +239,8 @@
                 <f:if condition="{single.item.thumb_video}">
                     <f:then>
                         <a href="{single.item.video}">
-                            <f:image src="{single.item.thumb_video}" alt="Video Thumb"
+                            <f:image src="{single.item.thumb_video}"
+                                     width="{settings.scale.thumbWidth}" height="{settings.scale.thumbHeight}" alt="Video Thumb"
                                      additionalAttributes="{data-layer: '{single.item.layer_video}', data-title: '{single.item.title_video}', data-description: '{single.item.description_video}'}"/>
                         </a>
                     </f:then>
@@ -257,7 +258,7 @@
                 <f:if condition="{single.item.thumb_iframe}">
                     <f:then>
                         <a href="{single.item.iframe}">
-                            <f:image class="iframe" src="{single.item.thumb_iframe}" alt="Iframe Thumb"
+                            <f:image class="iframe" src="{single.item.thumb_iframe}" alt="Iframe Thumb" width="{settings.scale.thumbWidth}" height="{settings.scale.thumbHeight}"
                                      additionalAttributes="{data-layer: '{single.item.layer_iframe}', data-title: '{single.item.title_iframe}', data-description: '{single.item.description_iframe}'}"/>
                         </a>
                     </f:then>

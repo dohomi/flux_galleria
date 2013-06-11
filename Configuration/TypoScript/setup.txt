@@ -41,79 +41,100 @@ plugin.tx_fluxgalleria._CSS_DEFAULT_STYLE (
 
 plugin.tx_fluxgalleria.settings {
 	files {
-	  galleriaMain = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/galleria-{$plugin.tx_fluxgalleria.settings.version}.min.js
+	  galleriaMain = {$plugin.tx_fluxgalleria.files.galleriaMain}
 	  galleriaMain.library = 1
 	  galleriaMain.footer = 1
 	  galleriaMain.excludeFromConcatenation = 0
-	  galleriaMain.compress = 0
+	  galleriaMain.compress = 1
 
-	  galleriaTheme = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/themes/classic/galleria.classic.min.js
+	  galleriaTheme = {$plugin.tx_fluxgalleria.files.galleriaTheme}
 	  galleriaTheme.library = 1
 	  galleriaTheme.footer = 1
   	  galleriaTheme.excludeFromConcatenation = 0
-  	  galleriaTheme.compress = 0
+  	  galleriaTheme.compress = 1
 
-	  galleriaThemeCss = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/themes/classic/galleria.classic.css
+	  galleriaThemeCss = {$plugin.tx_fluxgalleria.files.galleriaThemeCss}
 	  galleriaThemeCss.excludeFromConcatenation = 0
-  	  galleriaThemeCss.compress = 0
+  	  galleriaThemeCss.compress = 1
 
-	  galleriaHistoryPlugin = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/plugins/history/galleria.history.min.js
+	  galleriaHistoryPlugin = {$plugin.tx_fluxgalleria.files.galleriaHistoryPlugin}
 	  galleriaHistoryPlugin.library = 1
 	  galleriaHistoryPlugin.footer = 1
 	  galleriaHistoryPlugin.excludeFromConcatenation = 0
-  	  galleriaHistoryPlugin.compress = 0
+  	  galleriaHistoryPlugin.compress = 1
 
-	  galleriaFlickrPlugin = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/plugins/flickr/galleria.flickr.min.js
+	  galleriaFlickrPlugin = {$plugin.tx_fluxgalleria.files.galleriaFlickrPlugin}
 	  galleriaFlickrPlugin.library = 1
 	  galleriaFlickrPlugin.footer = 1
   	  galleriaFlickrPlugin.excludeFromConcatenation = 0
-  	  galleriaFlickrPlugin.compress = 0
+  	  galleriaFlickrPlugin.compress = 1
 
-	  galleriaPicasaPlugin = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/plugins/picasa/galleria.picasa.js
+	  galleriaPicasaPlugin = {$plugin.tx_fluxgalleria.files.galleriaPicasaPlugin}
 	  galleriaPicasaPlugin.library = 1
 	  galleriaPicasaPlugin.footer = 1
 	  galleriaPicasaPlugin.excludeFromConcatenation = 0
-  	  galleriaPicasaPlugin.compress = 0
+  	  galleriaPicasaPlugin.compress = 1
 
 	}
 
-	tsConfig {
+	tsEnable {
+	    history = {$plugin.tx_fluxgalleria.settings.tsEnable.history}
+	}
+
+    tsScale {
+        thumbWidth = {$plugin.tx_fluxgalleria.settings.tsScale.thumbWidth}
+        thumbHeight = {$plugin.tx_fluxgalleria.settings.tsScale.thumbHeight}
         width = {$plugin.tx_fluxgalleria.settings.tsConfig.width}
         height = {$plugin.tx_fluxgalleria.settings.tsConfig.height}
+
+    }
+
+	tsConfig {
+        autoplay = {$plugin.tx_fluxgalleria.settings.tsConfig.autoplay}
+        carousel = {$plugin.tx_fluxgalleria.settings.tsConfig.carousel}
+        carouselSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.carouselSpeed}
+        carouselSteps = {$plugin.tx_fluxgalleria.settings.tsConfig.carouselSteps}
+        clicknext = {$plugin.tx_fluxgalleria.settings.tsConfig.clicknext}
+        debug = {$plugin.tx_fluxgalleria.settings.tsConfig.debug}
+        dummy = {$plugin.tx_fluxgalleria.settings.tsConfig.dummy}
+        easing = {$plugin.tx_fluxgalleria.settings.tsConfig.easing}
+        extend = {$plugin.tx_fluxgalleria.settings.tsConfig.extend}
+        height = {$plugin.tx_fluxgalleria.settings.tsConfig.height}
+        idleMode = {$plugin.tx_fluxgalleria.settings.tsConfig.idleMode}
+        idleTime = {$plugin.tx_fluxgalleria.settings.tsConfig.idleTime}
+        idleSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.idleSpeed}
+        imageCrop = {$plugin.tx_fluxgalleria.settings.tsConfig.imageCrop}
         imageMargin = {$plugin.tx_fluxgalleria.settings.tsConfig.imageMargin}
-        imagePosition = {$plugin.tx_fluxgalleria.settings.tsConfig.imagePosition}
-        maxScaleRatio = {$plugin.tx_fluxgalleria.settings.tsConfig.maxScaleRatio}
         imagePan = {$plugin.tx_fluxgalleria.settings.tsConfig.imagePan}
+        imagePanSmoothness = {$plugin.tx_fluxgalleria.settings.tsConfig.imagePanSmoothness}
+        imagePosition = {$plugin.tx_fluxgalleria.settings.tsConfig.imagePosition}
+        initialTransition = {$plugin.tx_fluxgalleria.settings.tsConfig.initialTransition}
+        layerFollow = {$plugin.tx_fluxgalleria.settings.tsConfig.layerFollow}
+        lightbox = {$plugin.tx_fluxgalleria.settings.tsConfig.lightbox}
+        lightboxFadeSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.lightboxFadeSpeed}
+        lightboxTransitionSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.lightboxTransitionSpeed}
+        maxScaleRatio = {$plugin.tx_fluxgalleria.settings.tsConfig.maxScaleRatio}
+        maxVideoSize = {$plugin.tx_fluxgalleria.settings.tsConfig.maxVideoSize}
+        overlayBackground = {$plugin.tx_fluxgalleria.settings.tsConfig.overlayBackground}
+        overlayOpacity = {$plugin.tx_fluxgalleria.settings.tsConfig.overlayOpacity}
         pauseOnInteraction = {$plugin.tx_fluxgalleria.settings.tsConfig.pauseOnInteraction}
+        popupLinks = {$plugin.tx_fluxgalleria.settings.tsConfig.popupLinks}
+        preload = {$plugin.tx_fluxgalleria.settings.tsConfig.preload}
+        responsive = {$plugin.tx_fluxgalleria.settings.tsConfig.responsive}
+        show = {$plugin.tx_fluxgalleria.settings.tsConfig.show}
         showCounter = {$plugin.tx_fluxgalleria.settings.tsConfig.showCounter}
         showImagenav = {$plugin.tx_fluxgalleria.settings.tsConfig.showImagenav}
         showInfo = {$plugin.tx_fluxgalleria.settings.tsConfig.showInfo}
-        easing = {$plugin.tx_fluxgalleria.settings.tsConfig.easing}
-        imageCrop = {$plugin.tx_fluxgalleria.settings.tsConfig.imageCrop}
-        imagePanSmoothness = {$plugin.tx_fluxgalleria.settings.tsConfig.imagePanSmoothness}
-        show = {$plugin.tx_fluxgalleria.settings.tsConfig.show}
-        autoplay = {$plugin.tx_fluxgalleria.settings.tsConfig.autoplay}
-        transitions = {$plugin.tx_fluxgalleria.settings.tsConfig.transitions}
-        initialTransition = {$plugin.tx_fluxgalleria.settings.tsConfig.initialTransition}
-        transitionSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.transitionSpeed}
-        carousel = {$plugin.tx_fluxgalleria.settings.tsConfig.carousel}
-        layerFollow = {$plugin.tx_fluxgalleria.settings.tsConfig.layerFollow}
-        clicknext = {$plugin.tx_fluxgalleria.settings.tsConfig.clicknext}
-        carouselSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.carouselSpeed}
-        carouselSteps = {$plugin.tx_fluxgalleria.settings.tsConfig.carouselSteps}
-        thumbnails = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbnails}
-        thumbQuality = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbQuality}
-        popupLinks = {$plugin.tx_fluxgalleria.settings.tsConfig.popupLinks}
         thumbCrop = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbCrop}
         thumbMargin = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbMargin}
-        lightbox = {$plugin.tx_fluxgalleria.settings.tsConfig.lightbox}
-        overlayOpacity = {$plugin.tx_fluxgalleria.settings.tsConfig.overlayOpacity}
-        overlayBackground = {$plugin.tx_fluxgalleria.settings.tsConfig.overlayBackground}
-        lightboxFadeSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.lightboxFadeSpeed}
-        lightboxTransitionSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.lightboxTransitionSpeed}
-        debug = {$plugin.tx_fluxgalleria.settings.tsConfig.debug}
-        extends = {$plugin.tx_fluxgalleria.settings.tsConfig.extends}
+        thumbnails = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbnails}
+        thumbQuality = {$plugin.tx_fluxgalleria.settings.tsConfig.thumbQuality}
+        touchTransition = {$plugin.tx_fluxgalleria.settings.tsConfig.touchTransition}
+        transition = {$plugin.tx_fluxgalleria.settings.tsConfig.transition}
+        transitionSpeed = {$plugin.tx_fluxgalleria.settings.tsConfig.transitionSpeed}
         wait = {$plugin.tx_fluxgalleria.settings.tsConfig.wait}
+        width = {$plugin.tx_fluxgalleria.settings.tsConfig.width}
 	}
 }
+
 
