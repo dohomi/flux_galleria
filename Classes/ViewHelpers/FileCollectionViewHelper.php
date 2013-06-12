@@ -7,6 +7,9 @@ namespace DMF\FluxGalleria\ViewHelpers;
  * @subpackage ViewHelpers/PageRenderer
  */
 
+use TYPO3\CMS\Core\Resource\FileCollectionRepository;
+use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
@@ -33,15 +36,13 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
-
+class FileCollectionViewHelper extends AbstractTagBasedViewHelper {
 
 	/**
 	 * Initialize
 	 */
 	public function initializeArguments() {
-		$this->registerArgument('dir', 'string', 'Directory from where to fetch files', TRUE, FALSE);
-		$this->registerArgument('extension', 'mixed', 'Comma separated list of file extensions which are allowed', TRUE, FALSE);
+		$this->registerArgument('uid', 'string', 'Uid of file collection', TRUE, FALSE);
 	}
 
 	/**
@@ -49,10 +50,10 @@ class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
 	 */
 	public function render() {
 
-		$files = $this->getFilenamesOfType();
+		$fileCollection = $this->getFilesOfCollection();
 
 		// add here the backup variables for the container
-		$backupVars = array('files');
+		$backupVars = array('fileCollection');
 		$backups    = array();
 		foreach ($backupVars as $var) {
 			if ($this->templateVariableContainer->exists($var)) {
@@ -61,9 +62,9 @@ class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
 			}
 		}
 
-		$this->templateVariableContainer->add('files', $files);
+		$this->templateVariableContainer->add('fileCollection', $fileCollection);
 		$content = $this->renderChildren();
-		$this->templateVariableContainer->remove('files');
+		$this->templateVariableContainer->remove('fileCollection');
 
 		if (count($backups) > 0) {
 			foreach ($backups as $var => $value) {
@@ -75,40 +76,22 @@ class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
 	}
 
 	/**
-	 * Returns an array of files based on the extension argument
+	 * Returns all file objects as array
 	 *
-	 * @return array|bool
+	 * @return array
 	 */
-	protected function getFilenamesOfType() {
-		$dir              = $this->arguments['dir'];
-		$allowedExtension = GeneralUtility::trimExplode(',', $this->arguments['extension']);
-		$relative         = $dir;
-		if (substr($dir, 0, 1) != '/') {
-			$dir = PATH_site . $dir;
-		}
-		$files = scandir($dir);
-		if (is_array($files)) {
+	protected function getFilesOfCollection() {
+		$uid = $this->arguments['uid'];
 
+		/** @var FileRepository $fileRepository */
+		$fileRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\FileRepository');
+		$fileCollection = $fileRepository->findByRelation('sys_file_collection', 'files', $uid);
 
-			foreach ($files as $k => $file) {
-				$pathinfo = pathinfo($dir . $file);
-				if ($pathinfo['extension'] == '') {
-					unset($files[$k]);
-				} elseif (is_dir($dir . $file)) {
-					unset($files[$k]);
-				} elseif ($allowedExtension && !in_array($pathinfo['extension'], $allowedExtension)) {
-					unset($files[$k]);
-				} else {
-					$files[$k] = $relative . '/' . $file;
-				}
-			}
-			sort($files);
-
-			return $files;
+		foreach ($fileCollection as $item) {
+			/** @var FileReference $item */
+			$files[] = $item->toArray();
 		}
 
-		return FALSE;
-
+		return $files;
 	}
-
 }

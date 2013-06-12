@@ -17,7 +17,7 @@
                 <flux:flexform.object name="item" label="Gallery item">
 
                     <flux:flexform.field.select name="type" label="Type"
-                                                items="{0: 'Please select', 1: 'Image', 2: 'Video', 3: 'IFrame', 4: 'Flickr', 5: 'Picasa', 6: 'Folder'}"
+                                                items="{0: 'Please select', 1: 'Image', 2: 'Video', 3: 'IFrame', 4: 'Flickr', 5: 'Picasa', 6: 'Folder', 7: 'File Collection'}"
                                                 default="0"
                                                 requestUpdate="TRUE"/>
 
@@ -102,6 +102,11 @@
                     <flux:flexform.field.input name="extension" label="Comma seperated list of allowed file extensions"
                                                displayCond="FIELD:type:=:6"/>
 
+                    <f:comment>Folder configuration fields</f:comment>
+                    <flux:flexform.field.group name="collection" label="Choose file collection"
+                                               allowed="sys_file_collection"
+                                               displayCond="FIELD:type:=:7"/>
+
 
                 </flux:flexform.object>
             </flux:flexform.section>
@@ -136,9 +141,11 @@
             <flux:flexform.field.input name="settings.config.imagePosition"
                                        label="Position of image to show. Same as background-image position"
                                        default="center"/>
-            <flux:flexform.field.select name="settings.config.imageCrop" label="Crops image inside the container (default: true)"
+            <flux:flexform.field.select name="settings.config.imageCrop"
+                                        label="Crops image inside the container (default: true)"
                                         commaSeparatedItems="default,false,true,height,width,landscape,portrait"/>
-            <flux:flexform.field.input name="settings.config.show" label="Index of image where to start first (default: 0)" />
+            <flux:flexform.field.input name="settings.config.show"
+                                       label="Index of image where to start first (default: 0)"/>
             <flux:flexform.field.select name="settings.config.showCounter" label="Toggle the counter"
                                         commaSeparatedItems="default,true,false"/>
             <flux:flexform.field.select name="settings.config.showInfo" label="Display of image caption"
@@ -156,9 +163,9 @@
             <flux:flexform.field.input name="settings.config.lightboxTransitionSpeed"
                                        label="This value controls the transition speed (default: 300)."/>
             <flux:flexform.field.input name="settings.config.overlayBackground"
-                                       label="This defines the overlay background color when calling showLightbox() (default: #0b0b0b)." />
+                                       label="This defines the overlay background color when calling showLightbox() (default: #0b0b0b)."/>
             <flux:flexform.field.input name="settings.config.overlayOpacity"
-                                       label="This sets how much opacity the overlay should have when calling showLightbox() (default: 0.85)." />
+                                       label="This sets how much opacity the overlay should have when calling showLightbox() (default: 0.85)."/>
         </flux:flexform.sheet>
 
         <flux:flexform.sheet name="carousel" label="Carousel">
@@ -166,23 +173,25 @@
                                         label="Galleria comes with a built-in horizontal carousel."
                                         commaSeparatedItems="default,true,false"/>
             <flux:flexform.field.input name="settings.config.carouselSpeed"
-                                       label="This option controls the slide speed of the carousel in milliseconds (default: 1200)." />
+                                       label="This option controls the slide speed of the carousel in milliseconds (default: 1200)."/>
             <flux:flexform.field.input name="settings.config.carouselSteps"
-                                       label="The number of 'steps' the carousel will advance when navigating between available thumbnails. Integer or 'auto'." />
+                                       label="The number of 'steps' the carousel will advance when navigating between available thumbnails. Integer or 'auto'."/>
 
         </flux:flexform.sheet>
 
         <flux:flexform.sheet name="js-config" label="Additional options">
             <flux:flexform.field.select name="settings.config.transition" label="Transition of gallery"
                                         commaSeparatedItems="default, slide, fade, flash, pulse, fadeslide"/>
-            <flux:flexform.field.checkbox name="settings.enable.history" label="Enable History plugin."/>
+            <flux:flexform.field.select name="settings.enable.history" label="Enable History plugin."
+                                        commaSeparatedItems="default, false,true"/>
             <flux:flexform.field.select name="settings.config.popupLinks" label="Every link on pictures set to _blank"
                                         commaSeparatedItems="default, false,true"/>
             <flux:flexform.field.select name="settings.config.responsive" label="Set galleria in responsive mode"
                                         commaSeparatedItems="default, false,true"/>
             <flux:flexform.field.select name="settings.config.imagePan" label="Pan effect for cropped pictures"
                                         commaSeparatedItems="default, false,true"/>
-            <flux:flexform.field.input name="settings.config.wait" label="Enable wait, if galleria is inside of tabs or accordion (boolean or int)."/>
+            <flux:flexform.field.input name="settings.config.wait"
+                                       label="Enable wait, if galleria is inside of tabs or accordion (boolean or int)."/>
             <flux:flexform.field.select name="settings.config.debug" label="Enable debug for error reporting"
                                         commaSeparatedItems="default, false,true"/>
             <flux:flexform.field.text name="settings.additionalconfig.js"
@@ -215,90 +224,53 @@
             <f:if condition="{single.item.type} == 1">
                 <f:if condition="{single.item.thumb}">
                     <f:then>
-                        <a href="<f:uri.image src='{single.item.thumb}' maxWidth='{settings.config.width}' maxHeight='{settings.config.height}' />">
-                            <f:image src="{single.item.original}"
-                                     alt="{single.item.title}" width="{settings.scale.thumbWidth}"
-                                     height="{settings.scale.thumbHeight}"
-                                     additionalAttributes="{data-big: '{single.item.original}', data-title: '{single.item.title}', data-description: '{single.item.description}', data-link: '<f:uri.page pageUid=\'{single.item.link}\'/>'}"/>
-                        </a>
+                        <f:render partial="Galleria/Image"
+                                  arguments="{settings:settings,image:single.item.original, imageThumb:single.item.thumb, description:single.item.description, title:single.item.title, link:single.item.link, layer:single.item.layer}"/>
                     </f:then>
                     <f:else>
-                        <a href="<f:uri.image src='{single.item.original}' maxWidth='{settings.config.width}' maxHeight='{settings.config.height}' />">
-                            <f:image src="{single.item.original}"
-                                     alt="{single.item.title}" width="{settings.scale.thumbWidth}"
-                                     height="{settings.scale.thumbHeight}"
-                                     additionalAttributes="{data-big: '{single.item.original}', data-title: '{single.item.title}', data-description: '{single.item.description}', data-link: '<f:uri.page pageUid=\'{single.item.link}\'/>'}"/>
-                        </a>
+                        <f:render partial="Galleria/Image"
+                                  arguments="{settings:settings,image:single.item.original, imageThumb:single.item.original, description:single.item.description, title:single.item.title, link:single.item.link, layer:single.item.layer}"/>
                     </f:else>
                 </f:if>
             </f:if>
 
 
             <f:if condition="{single.item.type} == 2">
-                <f:if condition="{single.item.thumb_video}">
-                    <f:then>
-                        <a href="{single.item.video}">
-                            <f:image src="{single.item.thumb_video}"
-                                     width="{settings.scale.thumbWidth}" height="{settings.scale.thumbHeight}" alt="Video Thumb"
-                                     additionalAttributes="{data-layer: '{single.item.layer_video}', data-title: '{single.item.title_video}', data-description: '{single.item.description_video}'}"/>
-                        </a>
-                    </f:then>
-                    <f:else>
-                        <a href="{single.item.video}">
-                            <span class="video" data-layer="{single.item.layer_video}"
-                                                            data-title="{single.item.title_video}"
-                                                            data-description="{single.item.description_video}">Check out this video</span>
-                        </a>
-                    </f:else>
-                </f:if>
+                <f:render partial="Galleria/Video" arguments="{settings:settings, single:single}"/>
             </f:if>
 
             <f:if condition="{single.item.type} == 3">
-                <f:if condition="{single.item.thumb_iframe}">
-                    <f:then>
-                        <a href="{single.item.iframe}">
-                            <f:image class="iframe" src="{single.item.thumb_iframe}" alt="Iframe Thumb" width="{settings.scale.thumbWidth}" height="{settings.scale.thumbHeight}"
-                                     additionalAttributes="{data-layer: '{single.item.layer_iframe}', data-title: '{single.item.title_iframe}', data-description: '{single.item.description_iframe}'}"/>
-                        </a>
-                    </f:then>
-                    <f:else>
-                        <a href="{single.item.iframe}">
-							<span class="iframe" data-layer="{single.item.layer_iframe}"
-                                  data-title="{single.item.title_iframe}"
-                                  data-description="{single.item.description_iframe}">Check this out</span>
-                        </a>
-                    </f:else>
-                </f:if>
+                <f:render partial="Galleria/Iframe" arguments="{settings:settings, single:single}"/>
             </f:if>
 
             <f:if condition="{single.item.type} == 6">
                 <f:if condition="{single.item.extension}">
                     <f:then>
                         <dmf:fetchFiles dir="{single.item.folder}" extension="{single.item.extension}">
-
                             <f:for each="{files}" as="image">
-                                <a href="<f:uri.image src='{image}' maxWidth='{settings.config.width}' maxHeight='{settings.config.height}' />">
-                                    <f:image src="{image}"
-                                             alt="" maxWidth="{settings.scale.thumbWidth}"
-                                             maxHeight="{settings.scale.thumbHeight}"
-                                             additionalAttributes="{data-big: '{image}'}"/>
-                                </a>
+                                <f:render partial="Galleria/Image" arguments="{settings:settings, image:image}"/>
                             </f:for>
                         </dmf:fetchFiles>
                     </f:then>
                     <f:else>
                         <dmf:fetchFiles dir="{single.item.folder}" extension="jpg,png,tiff,gif">
                             <f:for each="{files}" as="image">
-                                <a href="<f:uri.image src='{image}' maxWidth='{settings.config.width}' maxHeight='{settings.config.height}' />">
-                                    <f:image src="{image}"
-                                             alt="" maxWidth="{settings.scale.thumbWidth}"
-                                             maxHeight="{settings.scale.thumbHeight}"
-                                             additionalAttributes="{data-big: '{image}'}"/>
-                                </a>
+                                <f:render partial="Galleria/Image" arguments="{settings:settings, image:image}"/>
                             </f:for>
                         </dmf:fetchFiles>
                     </f:else>
                 </f:if>
+            </f:if>
+
+            <f:if condition="{single.item.type} == 7">
+                <dmf:fileCollection uid="{single.item.collection}">
+                    <f:for each="{fileCollection}" as="file">
+                        <f:if condition="{file.type} == 2">
+                            <f:render partial="Galleria/Image"
+                                      arguments="{settings:settings, image:file.url, imageThumb:file.url, description:file.description, title:file.title}"/>
+                        </f:if>
+                    </f:for>
+                </dmf:fileCollection>
             </f:if>
         </f:for>
     </div>
