@@ -81,7 +81,7 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/enable/140; type=options[default,true,false,height,width]; label=Image crop: Defines how the main image will be cropped inside it's container.
         imageCrop = default
 
-        # cat=FluxGalleria Setup/enable/150; type=string; label=Image margin: Sets margin for the main picture
+        # cat=FluxGalleria Setup/enable/150; type=string; label=Image margin: Sets margin for the main picture (default: 0)
         imageMargin =
 
         # cat=FluxGalleria Setup/enable/160; type=options[default,true,false]; label=Image pan: Useful for design pages
