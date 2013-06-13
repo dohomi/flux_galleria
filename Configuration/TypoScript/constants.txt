@@ -22,8 +22,8 @@ plugin.tx_fluxgalleria.settings {
 
     tsEnable {
 
-        # cat=FluxGalleria Setup/basic/020; type=options[default,true,false]; label=Enable history plugin: Shows pictures with hash code for history back button
-        history = default
+        # cat=FluxGalleria Setup/basic/020; type=options[,true,false]; label=Enable history plugin: Shows pictures with hash code for history back button
+        history =
 
     }
 
@@ -42,8 +42,8 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/enable/010; type=string; label=Auto scroll (in ms): Auto scroll of the gallery
         autoplay =
 
-        # cat=FluxGalleria Setup/enable/020; type=options[default,true,false]; label=Enable thumb carousel: Enable thumbnail handling (arrows+scroll)
-        carousel = default
+        # cat=FluxGalleria Setup/enable/020; type=options[,true,false]; label=Enable thumb carousel: Enable thumbnail handling (arrows+scroll)
+        carousel =
 
         # cat=FluxGalleria Setup/enable/030; type=string; label=Carousel speed: Speed of each carousel cycle (default: 200)
         carouselSpeed =
@@ -51,17 +51,17 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/enable/040; type=string; label=Carousel steps: Steps for each carousel click: integer or auto (default: auto)
         carouselSteps =
 
-        # cat=FluxGalleria Setup/enable/050; type=options[default,true,false]; label=Click next: navigates to the next image in the gallery
-        clicknext = default
+        # cat=FluxGalleria Setup/enable/050; type=options[,true,false]; label=Click next: navigates to the next image in the gallery
+        clicknext =
 
-        # cat=FluxGalleria Setup/enable/060; type=options[default,true,false]; label=Enable debug: turn on if any troubles with loading galleria
-        debug = default
+        # cat=FluxGalleria Setup/enable/060; type=options[,true,false]; label=Enable debug: turn on if any troubles with loading galleria
+        debug =
 
         # cat=FluxGalleria Setup/enable/070; type=string; label=Define dummy image: This option allows you to define an image that should be shown if Galleria can’t find the original image.
         dummy =
 
-        # cat=FluxGalleria Setup/enable/080; type=options[default,galleria,galleriaIn,galleriaOut,swing,linear,Quad,Cubic,Quart,Quint,Sine,Expo,Circ,Back,Bounce,Elastic]; label=Easing: (default: galleria)
-        easing = default
+        # cat=FluxGalleria Setup/enable/080; type=options[,galleria,galleriaIn,galleriaOut,swing,linear,Quad,Cubic,Quart,Quint,Sine,Expo,Circ,Back,Bounce,Elastic]; label=Easing: (default: galleria)
+        easing =
 
         # cat=FluxGalleria Setup/enable/090; type=text; label=Extend the galleria: Use extend as a method for adding custom modifications such as play/pause without creating a new theme.
         extend =
@@ -69,8 +69,8 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/enable/100; type=string; label=Gallery height: Height of the gallery
         height = 350
 
-        # cat=FluxGalleria Setup/enable/110; type=options[default,true,false,hover]; label=Idle Mode: Global option for turning on/off idle mode.
-        idleMode = false
+        # cat=FluxGalleria Setup/enable/110; type=options[,true,false,hover]; label=Idle Mode: Global option for turning on/off idle mode.
+        idleMode =
 
         # cat=FluxGalleria Setup/enable/120; type=string; label=Idle time: You can control the delay before Galleria falls into Idle mode using this option. (default: 3000)
         idleTime =
@@ -78,14 +78,14 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/enable/130; type=string; label=Idle speed: You can control the animation speed of the idle elements. (default: 200)
         idleSpeed =
 
-        # cat=FluxGalleria Setup/enable/140; type=options[default,true,false,height,width]; label=Image crop: Defines how the main image will be cropped inside it's container.
-        imageCrop = default
+        # cat=FluxGalleria Setup/enable/140; type=options[,true,false,height,width]; label=Image crop: Defines how the main image will be cropped inside it's container.
+        imageCrop =
 
         # cat=FluxGalleria Setup/enable/150; type=string; label=Image margin: Sets margin for the main picture (default: 0)
         imageMargin =
 
-        # cat=FluxGalleria Setup/enable/160; type=options[default,true,false]; label=Image pan: Useful for design pages
-        imagePan = default
+        # cat=FluxGalleria Setup/enable/160; type=options[,true,false]; label=Image pan: Useful for design pages
+        imagePan =
 
         # cat=FluxGalleria Setup/enable/170; type=string; label=Image pan smoothness: Sets the smoothness of the pan (default: 12)
         imagePanSmoothness =
@@ -93,21 +93,20 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/enable/180; type=string; label=Image position: Sets the position like "top left" or "20% 100%" (default: center)
         imagePosition =
 
-        # cat=FluxGalleria Setup/enable/190; type=options[default,fade,flash,pulse,slide,fadeslide]; label=Transition for the first image (default: fade)
-        initialTransition = default
+        # cat=FluxGalleria Setup/enable/190; type=options[,fade,flash,pulse,slide,fadeslide]; label=Transition for the first image (default: fade)
+        initialTransition =
 
-        # cat=FluxGalleria Setup/enable/200; type=options[default,true,false]; label=Enable thumb following: Enable thumbnail following the current image
-        layerFollow = default
+        # cat=FluxGalleria Setup/enable/200; type=options[,true,false]; label=Enable thumb following: Enable thumbnail following the current image
+        layerFollow =
 
-        # cat=FluxGalleria Setup/enable/210; type=options[default,true,false]; label=Enable lightbox: Enable lightbox with by click on an image
-        lightbox = default
+        # cat=FluxGalleria Setup/enable/210; type=options[,true,false]; label=Enable lightbox: Enable lightbox with by click on an image
+        lightbox =
 
         # cat=FluxGalleria Setup/enable/220; type=string; label=Lightbox fade speed: Defines how fast the lightbox should fade (default: 200)
         lightboxFadeSpeed =
 
         # cat=FluxGalleria Setup/enable/230; type=string; label=Lightbox transition speed: Defines how fast the lightbox should animate (default: 300)
         lightboxTransitionSpeed =
-
 
         # cat=FluxGalleria Setup/enable/240; type=string; label=Maximum scale rate: Set 1 for no scale, default: scaling. Example: 0,6
         maxScaleRatio =
@@ -121,53 +120,53 @@ plugin.tx_fluxgalleria.settings {
         # cat=FluxGalleria Setup/enable/270; type=string; label=Lightbox opacity: grade of lightbox opacity (default: 0.85)
         overlayOpacity =
 
-        # cat=FluxGalleria Setup/enable/280; type=options[default,true,false]; label=Pause on interaction: FluxGalleria stops playback, if mouse over image or thumbnail
-        pauseOnInteraction = default
+        # cat=FluxGalleria Setup/enable/280; type=options[,true,false]; label=Pause on interaction: FluxGalleria stops playback, if mouse over image or thumbnail
+        pauseOnInteraction =
 
-        # cat=FluxGalleria Setup/enable/290; type=options[default,true,false]; label=Open link: if true opens link in new tab/window
-        popupLinks = default
+        # cat=FluxGalleria Setup/enable/290; type=options[,true,false]; label=Open link: if true opens link in new tab/window
+        popupLinks =
 
         # cat=FluxGalleria Setup/enable/300; type=string; label=Preload of images: Defines how many images Galleria should preload in advance. Please note that this only applies when you are using separate thumbnail files. Galleria always cache all preloaded images. 'all' forces all (default: 2)
         preload =
 
-        # cat=FluxGalleria Setup/enable/310; type=options[default,true,false]; label=Responsive gallery: This option sets thew Gallery in responsive mode. That means that it will resize the entire container if your CSS is dynamic. (default: true)
-        responsive = default
+        # cat=FluxGalleria Setup/enable/310; type=options[,true,false]; label=Responsive gallery: This option sets thew Gallery in responsive mode. That means that it will resize the entire container if your CSS is dynamic. (default: true)
+        responsive =
 
         # cat=FluxGalleria Setup/enable/320; type=string; label=Start with picture: Number of picture which should start
         show =
 
-        # cat=FluxGalleria Setup/enable/330; type=options[default,true,false]; label=Show counter: display counter
-        showCounter = default
+        # cat=FluxGalleria Setup/enable/330; type=options[,true,false]; label=Show counter: display counter
+        showCounter =
 
-        # cat=FluxGalleria Setup/enable/350; type=options[default,true,false]; label=Show navigation: display navigation prev / next
-        showImagenav = default
+        # cat=FluxGalleria Setup/enable/350; type=options[,true,false]; label=Show navigation: display navigation prev / next
+        showImagenav =
 
-        # cat=FluxGalleria Setup/enable/340; type=options[default,true,false]; label=Show info: displays the caption of an image
-        showInfo = default
+        # cat=FluxGalleria Setup/enable/340; type=options[,true,false]; label=Show info: displays the caption of an image
+        showInfo =
 
-        # cat=FluxGalleria Setup/enable/360; type=options[default,true,false,height,width]; label=Thumbnail crop: Same as image_crop, fits thumbnail width/height (default: true)
-        thumbCrop = default
+        # cat=FluxGalleria Setup/enable/360; type=options[,true,false,height,width]; label=Thumbnail crop: Same as image_crop, fits thumbnail width/height (default: true)
+        thumbCrop =
 
         # cat=FluxGalleria Setup/enable/370; type=string; label=Thumbnail margin: Margin for the thumbnails (default: 0)
         thumbMargin =
 
-        # cat=FluxGalleria Setup/enable/380; type=options[default,true,empty,numbers,false]; label=Show thumbnails: If set it renders thumbnails. (default: true)
-        thumbnails = default
+        # cat=FluxGalleria Setup/enable/380; type=options[,true,empty,numbers,false]; label=Show thumbnails: If set it renders thumbnails. (default: true)
+        thumbnails =
 
-        # cat=FluxGalleria Setup/enable/390; type=options[default,true,false,auto]; label=Thumbnail quality: Defines if and how IE should use bicubic image rendering for thumbnails. (default: true)
-        thumbQuality = default
+        # cat=FluxGalleria Setup/enable/390; type=options[,true,false,auto]; label=Thumbnail quality: Defines if and how IE should use bicubic image rendering for thumbnails. (default: true)
+        thumbQuality =
 
-        # cat=FluxGalleria Setup/enable/400; type=options[default,fade,flash,pulse,slide,fadeslide]; label=Touch device transition: Defines a different transition when a touch device is detected. See the transition option for info about the different transitions.
+        # cat=FluxGalleria Setup/enable/400; type=options[,fade,flash,pulse,slide,fadeslide]; label=Touch device transition: Defines a different transition when a touch device is detected. See the transition option for info about the different transitions.
         touchTransition =
 
-        # cat=FluxGalleria Setup/enable/410; type=options[default,fade,flash,pulse,slide,fadeslide]; label=Transition of the main images (default: fade)
-        transition = default
+        # cat=FluxGalleria Setup/enable/410; type=options[,fade,flash,pulse,slide,fadeslide]; label=Transition of the main images (default: fade)
+        transition =
 
         # cat=FluxGalleria Setup/enable/420; type=string; label=Transition speed: Transition speed for the image gallery in milliseconds (default: 400)
         transitionSpeed =
 
-        # cat=FluxGalleria Setup/enable/430; type=options[default,true,false]; label=Enable wait: enable this if galleria is inside of accordions or tabs
-        wait = default
+        # cat=FluxGalleria Setup/enable/430; type=options[,true,false]; label=Enable wait: enable this if galleria is inside of accordions or tabs
+        wait =
 
         # cat=FluxGalleria Setup/enable/440; type=string; label=Gallery width: Width of the gallery
         width = 500
@@ -177,21 +176,21 @@ plugin.tx_fluxgalleria.settings {
 
 plugin.tx_fluxgalleria.files {
 
-            # cat=FluxGalleria Setup/file/010; type=file[js]; label=jQuery Galleria: Location of the jQuery Galleria plugin
+            # cat=FluxGalleria Setup/file/010; type=string; label=jQuery Galleria: Location of the jQuery Galleria plugin
     	    galleriaMain = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/galleria-{$plugin.tx_fluxgalleria.settings.version}.min.js
 
-            # cat=FluxGalleria Setup/file/020; type=file[js]; label=jQuery Galleria theme: Location of the jQuery Galleria theme js source
+            # cat=FluxGalleria Setup/file/020; type=string; label=jQuery Galleria theme: Location of the jQuery Galleria theme js source
     	    galleriaTheme = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/themes/classic/galleria.classic.min.js
 
-            # cat=FluxGalleria Setup/file/030; type=file[css]; label=jQuery Galleria CSS: Location of the theme CSS source
+            # cat=FluxGalleria Setup/file/030; type=string; label=jQuery Galleria CSS: Location of the theme CSS source
     	    galleriaThemeCss = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/themes/classic/galleria.classic.css
 
-            # cat=FluxGalleria Setup/file/040; type=file[js]; label=History plugin: History plugin source file
+            # cat=FluxGalleria Setup/file/040; type=string; label=History plugin: History plugin source file
             galleriaHistoryPlugin = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/plugins/history/galleria.history.min.js
 
-            # cat=FluxGalleria Setup/file/050; type=file[js]; label=Flickr plugin: Location of the flickr plugin source file
+            # cat=FluxGalleria Setup/file/050; type=string; label=Flickr plugin: Location of the flickr plugin source file
     	    galleriaFlickrPlugin = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/plugins/flickr/galleria.flickr.min.js
 
-            # cat=FluxGalleria Setup/file/060; type=file[js]; label=Picasa plugin: Location of the picasa plugin source file
+            # cat=FluxGalleria Setup/file/060; type=string; label=Picasa plugin: Location of the picasa plugin source file
     	    galleriaPicasaPlugin = EXT:flux_galleria/Resources/Public/Js/galleria-{$plugin.tx_fluxgalleria.settings.version}/plugins/picasa/galleria.picasa.min.js
 }

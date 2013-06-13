@@ -1,16 +1,16 @@
-<f:if condition="{single.item.thumb_iframe}">
+<f:if condition="{imageThumb}">
     <f:then>
-        <a href="{single.item.iframe}">
-            <f:image class="iframe" src="{single.item.thumb_iframe}" alt="Iframe Thumb"
+        <a href="{url}">
+            <f:image class="{class}" src="{imageThumb}" alt=""
                      width="{settings.scale.thumbWidth}" height="{settings.scale.thumbHeight}"
-                     additionalAttributes="{data-layer: '{single.item.layer_iframe}', data-title: '{single.item.title_iframe}', data-description: '{single.item.description_iframe}'}"/>
+                     additionalAttributes="{data-layer: '{layer}', data-title: '{title}', data-description: '{description}'}"/>
         </a>
     </f:then>
     <f:else>
-        <a href="{single.item.iframe}">
-							<span class="iframe" data-layer="{single.item.layer_iframe}"
-                                  data-title="{single.item.title_iframe}"
-                                  data-description="{single.item.description_iframe}">Check this out</span>
+        <a href="{url}">
+            <span class="{class}" data-layer="{layer}"
+                  data-title="{title}"
+                  data-description="{description}"></span>
         </a>
     </f:else>
 </f:if>
