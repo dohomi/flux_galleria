@@ -77,6 +77,8 @@ plugin.tx_fluxgalleria.settings {
 
 	}
 
+	debugFluid = {$plugin.tx_fluxgalleria.settings.debugFluid}
+
 	tsEnable {
 	    history = {$plugin.tx_fluxgalleria.settings.tsEnable.history}
 	}

@@ -266,6 +266,9 @@
 
             <f:if condition="{single.item.type} == 7">
                 <dmf:fileCollection uid="{single.item.collection}">
+                    <f:if condition="{settings.debugFluid}">
+                        <f:debug>{fileCollection}</f:debug>
+                    </f:if>
                     <f:for each="{fileCollection}" as="file">
                         <f:if condition="{file.type} == 2">
                             <f:render partial="Galleria/Image"
@@ -277,6 +280,8 @@
         </f:for>
     </div>
 
-
+    <f:if condition="{settings.debugFluid}">
+        <f:debug>{_all}</f:debug>
+    </f:if>
 </f:section>
 </div>

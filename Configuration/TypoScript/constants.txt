@@ -20,6 +20,9 @@ plugin.tx_fluxgalleria.settings {
     # cat=FluxGalleria Setup/basic/010; type=string; label=Version: Version of galleria plugin
     version = 1.2.9
 
+    # cat=FluxGalleria Setup/basic/015; type=boolean; label=Fluid debug: Debug the whole output of the gallery with the DebugViewHelper
+    debugFluid =
+
     tsEnable {
 
         # cat=FluxGalleria Setup/basic/020; type=options[,true,false]; label=Enable history plugin: Shows pictures with hash code for history back button
