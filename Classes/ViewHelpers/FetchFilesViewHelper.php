@@ -40,8 +40,9 @@ class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
 	 * Initialize
 	 */
 	public function initializeArguments() {
-		$this->registerArgument('dir', 'string', 'Directory from where to fetch files', TRUE, FALSE);
+		$this->registerArgument('folder', 'string', 'Directory from where to fetch files', TRUE, FALSE);
 		$this->registerArgument('extension', 'mixed', 'Comma separated list of file extensions which are allowed', TRUE, FALSE);
+		$this->registerArgument('recursive', 'int', 'Integer how many levels deep the files should get fetched.');
 	}
 
 	/**
@@ -80,31 +81,29 @@ class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
 	 * @return array|bool
 	 */
 	protected function getFilenamesOfType() {
-		$dir              = $this->arguments['dir'];
-		$allowedExtension = GeneralUtility::trimExplode(',', $this->arguments['extension']);
-		$relative         = $dir;
-		if (substr($dir, 0, 1) != '/') {
-			$dir = PATH_site . $dir;
+		$folder = $this->arguments['folder'];
+		// check starting point for missing slash
+		if (substr($folder, -1) != '/') {
+			$folder = $folder . '/';
+		} elseif (substr($folder, 0, 1) == '/') {
+			$size   = strlen($folder);
+			$folder = substr($folder, 1, $size - 1);
 		}
-		$files = scandir($dir);
-		if (is_array($files)) {
 
+		if (is_dir($folder)) {
 
-			foreach ($files as $k => $file) {
-				$pathinfo = pathinfo($dir . $file);
-				if ($pathinfo['extension'] == '') {
-					unset($files[$k]);
-				} elseif (is_dir($dir . $file)) {
-					unset($files[$k]);
-				} elseif ($allowedExtension && !in_array($pathinfo['extension'], $allowedExtension)) {
-					unset($files[$k]);
-				} else {
-					$files[$k] = $relative . '/' . $file;
-				}
+			$files = GeneralUtility::getAllFilesAndFoldersInPath(
+				$fileArr = array(),
+				$folder,
+				$extList = $this->arguments['extension'],
+				$regDirs = 0,
+				$recursivityLevel = $this->arguments['recursive'],
+				$excludePattern = ''
+			);
+
+			if (is_array($files)) {
+				return $files;
 			}
-			sort($files);
-
-			return $files;
 		}
 
 		return FALSE;
