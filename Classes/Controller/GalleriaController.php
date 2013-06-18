@@ -189,17 +189,17 @@ class GalleriaController extends ActionController {
 	private function addJsInlineCode() {
 
 		foreach ($this->settings['tsConfig'] as $key => $tsValue) {
-			if ($tsValue) {
-				$flexValue = $this->settings['config'][$key];
-				// check the values from flexform and overwrite ts
-				if ($flexValue && $flexValue != 'default') {
-					$tsValue = $flexValue;
-				}
-				// set $this->options array
-				if ($tsValue != 'default') {
-					$this->escapeJsOption($key, $tsValue);
-				}
+
+			$flexValue = $this->settings['config'][$key];
+			// check the values from flexform and overwrite ts
+			if ($flexValue && $flexValue != 'default') {
+				$tsValue = $flexValue;
 			}
+			// set $this->options array
+			if ($tsValue != 'default' && $tsValue) {
+				$this->escapeJsOption($key, $tsValue);
+			}
+
 		}
 		// add additionalconfig from flexform
 		if ($this->settings['additionalconfig']['js']) {

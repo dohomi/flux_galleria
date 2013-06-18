@@ -7,9 +7,11 @@ namespace DMF\FluxGalleria\ViewHelpers;
  * @subpackage ViewHelpers/PageRenderer
  */
 
+use TYPO3\CMS\Core\Resource\Collection\FolderBasedFileCollection;
 use TYPO3\CMS\Core\Resource\FileCollectionRepository;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
+use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
@@ -37,6 +39,13 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 class FileCollectionViewHelper extends AbstractTagBasedViewHelper {
+
+	/**
+	 * @var \TYPO3\CMS\Core\Resource\FileCollectionRepository
+	 * @inject
+	 */
+	protected $fileCollectionRepository;
+
 
 	/**
 	 * Initialize
@@ -81,17 +90,34 @@ class FileCollectionViewHelper extends AbstractTagBasedViewHelper {
 	 * @return array
 	 */
 	protected function getFilesOfCollection() {
-		$uid = $this->arguments['uid'];
+		$uid = intval($this->arguments['uid']);
 
-		/** @var FileRepository $fileRepository */
-		$fileRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\FileRepository');
-		$fileCollection = $fileRepository->findByRelation('sys_file_collection', 'files', $uid);
+		$fileCollectionItem = $this->fileCollectionRepository->findByUid($uid);
 
-		foreach ($fileCollection as $item) {
-			/** @var FileReference $item */
-			$files[] = $item->toArray();
+		if (get_class($fileCollectionItem) == 'TYPO3\CMS\Core\Resource\Collection\FolderBasedFileCollection') {
+
+			/** @var FolderBasedFileCollection $fileCollectionItem */
+			$folderBasedCollection = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\Collection\\FolderBasedFileCollection');
+
+			$content = $fileCollectionItem->loadContents();
+			$ident   = $fileCollectionItem->toArray();
+		} else {
+			/** @var FileRepository $fileRepository */
+			$fileRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\FileRepository');
+			$fileCollection = $fileRepository->findByRelation('sys_file_collection', 'files', $uid);
+
+			//$content = $fileCollectionItem->loadContents();
+
+			//$items = $fileCollectionItem->getItems();
+
+			foreach ($fileCollection as $item) {
+				/** @var FileReference $item */
+				$files[] = $item->toArray();
+			}
+
+			return $files;
 		}
 
-		return $files;
+
 	}
 }
