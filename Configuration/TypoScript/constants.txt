@@ -20,7 +20,7 @@ plugin.tx_fluxgalleria.settings {
     # cat=FluxGalleria Setup/basic/010; type=string; label=Version: Version of galleria plugin
     version = 1.2.9
 
-    # cat=FluxGalleria Setup/basic/015; type=boolean; label=Fluid debug: Debug the whole output of the gallery with the DebugViewHelper
+    # cat=FluxGalleria Setup/basic/015; type=[,true,false]; label=Fluid debug: Debug the whole output of the gallery with the DebugViewHelper
     debugFluid =
 
     tsEnable {

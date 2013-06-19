@@ -1,5 +1,8 @@
 <?php
 namespace DMF\FluxGalleria\Controller;
+use TYPO3\CMS\Core\Resource\Collection\FolderBasedFileCollection;
+use TYPO3\CMS\Core\Resource\Collection\StaticFileCollection;
+use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -54,10 +57,16 @@ class GalleriaController extends ActionController {
 	protected $pageRenderer;
 
 	/**
+	 * @var \TYPO3\CMS\Core\Resource\FileCollectionRepository
+	 * @inject
+	 */
+	protected $fileCollectionRepository;
+
+	/**
 	 * @return void
 	 */
 	public function initializeAction() {
-
+		// empty for now
 	}
 
 	/**
@@ -81,6 +90,9 @@ class GalleriaController extends ActionController {
 			$this->settings['scale'][$dim] = ($this->settings['scale'][$dim]) ? $this->settings['scale'][$dim] : $this->settings['tsScale'][$dim];
 		}
 
+		// set boolean for debugFluid
+		$this->settings['debugFluid'] = ($this->settings['debugFluid'] == 'true') ? TRUE : FALSE;
+
 		$this->view->assign('record', $this->record);
 		$this->view->assign('settings', $this->settings);
 		$this->configurationManager->getContentObject()->data;
@@ -91,27 +103,60 @@ class GalleriaController extends ActionController {
 	/**
 	 * @return void
 	 */
-	private function additionalTypeActions() {
-		$iteration = 1;
-		foreach ($this->settings['items'] as $item) {
+	protected function additionalTypeActions() {
+		foreach ($this->settings['items'] as $key => $item) {
 			$type = $item['item']['type'];
 			if ($type == 4) {
 				// flickr type
 				$this->hasFlickrElement = TRUE;
-				$this->addFlickrCode($item['item'], $iteration);
+				$this->addFlickrCode($item['item'], $key);
 			} elseif ($type == 5) {
 				//picasa type
 				$this->hasPicasaElement = TRUE;
-				$this->addPicasaCode($item['item'], $iteration);
+				$this->addPicasaCode($item['item'], $key);
+			} elseif ($type == 7) {
+				// file collection
+				if ($collection = $this->getFileCollectionItems($item['item']['collection'])) {
+					$this->settings['items'][$key]['item']['collection_files'] = $collection;
+				}
 			}
-			$iteration++;
 		}
+	}
+
+	/**
+	 * @param $uid collection uid from flexform
+	 *
+	 * @return array|void
+	 */
+	protected function getFileCollectionItems($uid) {
+		$fileCollection = $this->fileCollectionRepository->findByUid($uid);
+
+		if (get_class($fileCollection) == 'TYPO3\CMS\Core\Resource\Collection\FolderBasedFileCollection') {
+			/** @var FolderBasedFileCollection $fileCollection */
+			$fileCollection->loadContents();
+			$items = $fileCollection->getItems();
+
+			return $fileCollection->loadContents();
+
+		} else {
+			/** @var StaticFileCollection $fileCollection */
+			$fileCollection->loadContents();
+			$items = $fileCollection->getItems();
+
+			foreach ($items as $item) {
+				/** @var FileReference $item */
+				$files[] = $item->toArray();
+			}
+
+			return $files;
+		}
+
 	}
 
 	/**
 	 * @return void
 	 */
-	private function addFiles() {
+	protected function addFiles() {
 		foreach ($this->settings['files'] as $key => $file) {
 			if ($key == 'galleriaFlickrPlugin' && !$this->hasFlickrElement) {
 				continue;
@@ -137,7 +182,7 @@ class GalleriaController extends ActionController {
 	 *
 	 * @return void
 	 */
-	private function addFilePageRenderer($fileObj) {
+	protected function addFilePageRenderer($fileObj) {
 
 		if (is_array($fileObj)) {
 			$file = $GLOBALS['TSFE']->tmpl->getFileName($fileObj['_typoScriptNodeValue']);
@@ -186,7 +231,7 @@ class GalleriaController extends ActionController {
 	/**
 	 * @return void
 	 */
-	private function addJsInlineCode() {
+	protected function addJsInlineCode() {
 
 		foreach ($this->settings['tsConfig'] as $key => $tsValue) {
 
@@ -226,7 +271,7 @@ class GalleriaController extends ActionController {
 	 *
 	 * @return void
 	 */
-	private function escapeJsOption($key, $option) {
+	protected function escapeJsOption($key, $option) {
 		if (is_numeric($option) || $option == 'true' || $option == 'false') {
 			$this->options[] = $key . ':' . $option;
 		} elseif ($key == 'extend') {
@@ -245,7 +290,7 @@ class GalleriaController extends ActionController {
 	 *
 	 * @return void
 	 */
-	private function addPicasaCode($item, $iteration) {
+	protected function addPicasaCode($item, $iteration) {
 
 		$block = '
 			var picasa = new Galleria.Picasa();
@@ -267,7 +312,7 @@ class GalleriaController extends ActionController {
 	 *
 	 * @return void
 	 */
-	private function addFlickrCode($item, $iteration) {
+	protected function addFlickrCode($item, $iteration) {
 
 		$block = '
 			var flickr = new Galleria.Flickr();

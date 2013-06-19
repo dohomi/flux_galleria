@@ -257,17 +257,16 @@
             </f:if>
 
             <f:if condition="{single.item.type} == 7">
-                <dmf:fileCollection uid="{single.item.collection}">
-                    <f:if condition="{settings.debugFluid}">
-                        <f:debug>{fileCollection}</f:debug>
-                    </f:if>
-                    <f:for each="{fileCollection}" as="file">
-                        <f:if condition="{file.type} == 2">
-                            <f:render partial="Galleria/Image"
-                                      arguments="{settings:settings, image:file.url, imageThumb:file.url, description:file.description, title:file.title}"/>
-                        </f:if>
-                    </f:for>
-                </dmf:fileCollection>
+                <f:if condition="{single.item.collection_files}">
+
+                        <f:for each="{single.item.collection_files}" as="file">
+                            <f:if condition="{file.type} == 2">
+                                <f:render partial="Galleria/Image"
+                                          arguments="{settings:settings, image:file.url, imageThumb:file.url, description:file.description, title:file.title}"/>
+                            </f:if>
+                        </f:for>
+
+                </f:if>
             </f:if>
         </f:for>
     </div>

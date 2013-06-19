@@ -1,5 +1,7 @@
+{namespace dmf=DMF\FluxGalleria\ViewHelpers}
+
 <a href="<f:uri.image src='{imageThumb}' maxWidth='{settings.config.width}' maxHeight='{settings.config.height}' />">
-    <f:image src="{image}"
+    <dmf:image src="{image}"
              alt="{title}" width="{settings.scale.thumbWidth}" height="{settings.scale.thumbHeight}"
-             additionalAttributes="{data-big: '{image}', data-title: '{title}', data-description: '{description}', data-link: '<f:uri.page pageUid=\'{link}\'/>', data-layer: '{layer}'}"/>
+             additionalAttributes="{data-big: '{image}', data-title: '{title}', data-description: '{description}', data-link: '<f:uri.page pageUid=\'{link}\'/>', data-linkuid:'{link}', data-layer: '{layer}'}"/>
 </a>
