@@ -1,7 +1,8 @@
 <?php
 namespace DMF\FluxGalleria\Controller;
+
+use TYPO3\CMS\Core\Resource\Collection\AbstractFileCollection;
 use TYPO3\CMS\Core\Resource\Collection\FolderBasedFileCollection;
-use TYPO3\CMS\Core\Resource\Collection\StaticFileCollection;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -43,12 +44,12 @@ class GalleriaController extends ActionController {
 	/**
 	 * @var bool
 	 */
-	protected $hasFlickrElement = FALSE;
+	protected $hasFlickrElement = false;
 
 	/**
 	 * @var bool
 	 */
-	protected $hasPicasaElement = FALSE;
+	protected $hasPicasaElement = false;
 
 	/**
 	 * @var \TYPO3\CMS\Core\Page\PageRenderer
@@ -91,7 +92,7 @@ class GalleriaController extends ActionController {
 		}
 
 		// set boolean for debugFluid
-		$this->settings['debugFluid'] = ($this->settings['debugFluid'] == 'true') ? TRUE : FALSE;
+		$this->settings['debugFluid'] = ($this->settings['debugFluid'] == 'true') ? true : false;
 
 		$this->view->assign('record', $this->record);
 		$this->view->assign('settings', $this->settings);
@@ -108,11 +109,11 @@ class GalleriaController extends ActionController {
 			$type = $item['item']['type'];
 			if ($type == 4) {
 				// flickr type
-				$this->hasFlickrElement = TRUE;
+				$this->hasFlickrElement = true;
 				$this->addFlickrCode($item['item'], $key);
 			} elseif ($type == 5) {
 				//picasa type
-				$this->hasPicasaElement = TRUE;
+				$this->hasPicasaElement = true;
 				$this->addPicasaCode($item['item'], $key);
 			} elseif ($type == 7) {
 				// file collection
@@ -131,25 +132,16 @@ class GalleriaController extends ActionController {
 	protected function getFileCollectionItems($uid) {
 		$fileCollection = $this->fileCollectionRepository->findByUid($uid);
 
-		if (get_class($fileCollection) == 'TYPO3\CMS\Core\Resource\Collection\FolderBasedFileCollection') {
-			/** @var FolderBasedFileCollection $fileCollection */
-			$fileCollection->loadContents();
-			$items = $fileCollection->getItems();
+		/** @var AbstractFileCollection $fileCollection */
+		$fileCollection->loadContents();
+		$items = $fileCollection->getItems();
 
-			return $fileCollection->loadContents();
-
-		} else {
-			/** @var StaticFileCollection $fileCollection */
-			$fileCollection->loadContents();
-			$items = $fileCollection->getItems();
-
-			foreach ($items as $item) {
-				/** @var FileReference $item */
-				$files[] = $item->toArray();
-			}
-
-			return $files;
+		foreach ($items as $item) {
+			/** @var FileReference $item */
+			$files[] = $item->toArray();
 		}
+
+		return $files;
 
 	}
 
@@ -163,7 +155,7 @@ class GalleriaController extends ActionController {
 			} elseif ($key == 'galleriaPicasaPlugin' && !$this->hasPicasaElement) {
 				continue;
 			} elseif ($key == 'galleriaHistoryPlugin') {
-				$tsHistory   = $this->settings['tsEnable']['history'];
+				$tsHistory = $this->settings['tsEnable']['history'];
 				$flexHistory = $this->settings['enable']['history'];
 				if (($tsHistory == 'true' && $flexHistory != 'false') || $flexHistory == 'true') {
 					$this->addFilePageRenderer($file);
@@ -191,11 +183,11 @@ class GalleriaController extends ActionController {
 		}
 		$includeFunctionName = 'add';
 
-		$excludeFromConcatenation = ($fileObj['excludeFromConcatenation'] == 1) ? TRUE : FALSE;
-		$compress                 = ($fileObj['compress'] == 1) ? TRUE : FALSE;
-		$funcArgumentList         = array(
+		$excludeFromConcatenation = ($fileObj['excludeFromConcatenation'] == 1) ? true : false;
+		$compress = ($fileObj['compress'] == 1) ? true : false;
+		$funcArgumentList = array(
 			$compress,
-			$forceOnTop = FALSE,
+			$forceOnTop = false,
 			$allWrap = '',
 			$excludeFromConcatenation
 		);
