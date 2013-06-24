@@ -1,11 +1,9 @@
-{namespace dmf=DMF\FluxGalleria\ViewHelpers}
-
 <f:if condition="{imageThumb}">
     <f:then>
         <a href="{url}">
-            <dmf:image class="{class}" src="{imageThumb}" alt=""
-                     width="{settings.scale.thumbWidth}" height="{settings.scale.thumbHeight}"
-                     additionalAttributes="{data-layer: '{layer}', data-title: '{title}', data-description: '{description}'}"/>
+            <f:image class="{class}" src="{imageThumb}" alt=""
+                       width="{settings.scale.thumbWidth}" height="{settings.scale.thumbHeight}"
+                       additionalAttributes="{data-layer: '{layer}', data-title: '{title}', data-description: '{description}'}"/>
         </a>
     </f:then>
     <f:else>
