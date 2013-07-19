@@ -17,6 +17,9 @@ plugin.tx_fluxgalleria {
 
 plugin.tx_fluxgalleria.settings {
 
+    # cat=FluxGalleria Setup/basic/005; type=boolean; label=JSON as data provider: Make use of dataSource as data provider - pure JS implementation - recommended option from Galleria team.
+    useJson = 0
+
     # cat=FluxGalleria Setup/basic/010; type=string; label=Version: Version of galleria plugin
     version = 1.2.9
 
@@ -36,6 +39,12 @@ plugin.tx_fluxgalleria.settings {
 
         # cat=FluxGalleria Setup/basic/040; type=string; label=Default scale thumb-height: Int for scaling the thumbnail, crop like 50c is possible default: 40.
         thumbHeight = 40
+
+        # cat=FluxGalleria Setup/basic/050; type=string; label=Default scale image-width: Int / string for scaling the main image. Crop is possible like 450c
+        width =
+
+        # cat=FluxGalleria Setup/basic/060; type=string; label=Default scale image-height: Int / string for scaling the main image. Crop is possible like 350c
+        height =
     }
 
 
@@ -70,7 +79,7 @@ plugin.tx_fluxgalleria.settings {
         extend =
 
         # cat=FluxGalleria Setup/enable/100; type=string; label=Gallery height: Height of the gallery
-        height = 350
+        height = 0
 
         # cat=FluxGalleria Setup/enable/110; type=options[,true,false,hover]; label=Idle Mode: Global option for turning on/off idle mode.
         idleMode =
@@ -172,7 +181,7 @@ plugin.tx_fluxgalleria.settings {
         wait =
 
         # cat=FluxGalleria Setup/enable/440; type=string; label=Gallery width: Width of the gallery
-        width = 500
+        width = 'auto'
 
     }
 }

@@ -1,26 +1,17 @@
 <?php
 namespace DMF\FluxGalleria\ViewHelpers;
-
-/**
- * @author     Dominic Garms, DMFmedia GmbH
- * @package    dmf_template
- * @subpackage ViewHelpers/PageRenderer
- */
-
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Dominic Garms <djgarms@gmail.com>, DMFmedia GmbH
+ *  (c) 2013 Dominic Garms <djgarms@gmail.com>
+ *      DMFmedia GmbH <http://www.dmfmedia.de>
  *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
+ *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
  *
  *  The GNU General Public License can be found at
@@ -33,6 +24,15 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+
+/**
+ * Class FetchFilesViewHelper
+ *
+ * @package DMF\FluxGalleria\ViewHelpers
+ */
 class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
 
 
@@ -97,7 +97,7 @@ class FetchFilesViewHelper extends AbstractTagBasedViewHelper {
 				$folder,
 				$extList = $this->arguments['extension'],
 				$regDirs = 0,
-				$recursivityLevel = $this->arguments['recursive'],
+				$recursiveLevel = $this->arguments['recursive'],
 				$excludePattern = ''
 			);
 

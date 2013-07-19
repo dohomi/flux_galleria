@@ -1,16 +1,10 @@
 <?php
 namespace DMF\FluxGalleria\Controller;
-
-use TYPO3\CMS\Core\Resource\Collection\AbstractFileCollection;
-use TYPO3\CMS\Core\Resource\Collection\FolderBasedFileCollection;
-use TYPO3\CMS\Core\Resource\FileReference;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012
+ *  (c) 2013 Dominic Garms <djgarms@gmail.com>, DMFmedia GmbH - http://www.dmfmedia.de
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,12 +23,27 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+use TYPO3\CMS\Core\Resource\Collection\AbstractFileCollection;
+use TYPO3\CMS\Core\Resource\Collection\FolderBasedFileCollection;
+use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
+/**
+ * Class GalleriaController
+ *
+ * @package DMF\FluxGalleria\Controller
+ */
 class GalleriaController extends ActionController {
 
 	/**
-	 * @var array
+	 * @var string
 	 */
-	protected $record = array();
+	protected $recordUid;
 
 	/**
 	 * @var array
@@ -42,14 +51,30 @@ class GalleriaController extends ActionController {
 	protected $options = array();
 
 	/**
-	 * @var bool
+	 * @var array
 	 */
-	protected $hasFlickrElement = false;
+	protected $jsBlock = array();
 
 	/**
 	 * @var bool
 	 */
-	protected $hasPicasaElement = false;
+	protected $hasFlickrElement = FALSE;
+
+	/**
+	 * @var bool
+	 */
+	protected $hasPicasaElement = FALSE;
+
+	/**
+	 * @var array
+	 */
+	protected $dataJson = array();
+
+	/**
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+	 * @inject
+	 */
+	protected $cObj;
 
 	/**
 	 * @var \TYPO3\CMS\Core\Page\PageRenderer
@@ -64,26 +89,29 @@ class GalleriaController extends ActionController {
 	protected $fileCollectionRepository;
 
 	/**
-	 * @return void
+	 * Main function of GalleriaController.
+	 * With $settings and $recordUid the whole configuration can get overwritten,
+	 * a sample how this works is the GalleriaFluxViewHelper. More options can get
+	 * included if necessary.
+	 *
+	 * @param array $settings
+	 * @param string $recordUid
 	 */
-	public function initializeAction() {
-		// empty for now
-	}
+	public function indexAction($settings = array(), $recordUid = '') {
 
-	/**
-	 * @return void
-	 */
-	public function indexAction() {
-		$this->record = $this->configurationManager->getContentObject()->data;
+		if (!empty($settings)) {
+			$this->settings = $this->configurationManager->getConfiguration(
+				ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'fluxgalleria', 'frontend'
+			);
 
-		// add inline main js code
-		$this->addJsInlineCode();
+			$this->configurationManager->setConfiguration(
+				$this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'fluxgalleria', 'frontend')
+			);
 
-		// do additional actions depends on the type of each item
-		$this->additionalTypeActions();
+			$this->settings = array_merge($this->settings, $settings);
+		}
 
-		// add galleria files
-		$this->addFiles();
+		$this->recordUid = ($recordUid !== '') ? $recordUid : 'g_' . $this->configurationManager->getContentObject()->data['uid'];
 
 		// set scale for images
 		$scaleArray = array('thumbWidth', 'thumbHeight', 'width', 'height');
@@ -91,13 +119,123 @@ class GalleriaController extends ActionController {
 			$this->settings['scale'][$dim] = ($this->settings['scale'][$dim]) ? $this->settings['scale'][$dim] : $this->settings['tsScale'][$dim];
 		}
 
-		// set boolean for debugFluid
-		$this->settings['debugFluid'] = ($this->settings['debugFluid'] == 'true') ? true : false;
+		// do additional actions depends on the type of each item
+		$this->additionalTypeActions();
 
-		$this->view->assign('record', $this->record);
-		$this->view->assign('settings', $this->settings);
-		$this->configurationManager->getContentObject()->data;
+		// build json data if enabled
+		if ($this->settings['useJson'] != 0) {
+			$this->buildDataJson();
+		}
 
+		// add inline main js code
+		$this->addJsInlineCode();
+
+		// add galleria files
+		$this->addFiles();
+
+		// don't render the view if $settings is set-> call from ViewHelper
+		if (empty($settings)) {
+			// set boolean for debugFluid
+			$this->settings['debugFluid'] = ($this->settings['debugFluid'] == 'true') ? TRUE : FALSE;
+			$this->view->assign('recordUid', $this->recordUid);
+			$this->view->assign('settings', $this->settings);
+			$noJson = ($this->settings['useJson'] == 0) ? TRUE : FALSE;
+			$this->view->assign('noJson', $noJson);
+		}
+	}
+
+	/**
+	 * Builds the data array if JSON output enabled
+	 */
+	protected function buildDataJson() {
+
+		$iteration = 0;
+
+		foreach ($this->settings['items'] as $item) {
+			$type = $item['item']['type'];
+			//$keyDeclaration = array('image', 'thumb', 'title', 'link', 'description', 'layer', 'video', 'iframe');
+			$fieldType = array();
+			switch ($type) {
+				case 1:
+					// image type
+					$fieldType[$iteration]['image'] = $this->getScaledImage($item['item']['original']);
+					$fieldType[$iteration]['thumb'] = ($item['item']['thumb']) ? $this->getScaledImage($item['item']['thumb'], TRUE) : $this->getScaledImage($item['item']['original'], TRUE);
+					$fieldType[$iteration]['title'] = $item['item']['title'];
+					$fieldType[$iteration]['link'] = $this->cObj->getTypoLink_URL($item['item']['link']);
+					$fieldType[$iteration]['description'] = $item['item']['description'];
+					$fieldType[$iteration]['layer'] = $item['item']['layer'];
+					$iteration++;
+					break;
+				case 2:
+					// video type
+					$fieldType[$iteration]['video'] = $item['item']['video'];
+					$fieldType[$iteration]['thumb'] = $this->getScaledImage($item['item']['thumb_video'], TRUE);
+					$fieldType[$iteration]['title'] = $item['item']['title_video'];
+					$fieldType[$iteration]['description'] = $item['item']['description_video'];
+					$fieldType[$iteration]['layer'] = $item['item']['layer_video'];
+					$iteration++;
+					break;
+
+				case 3:
+					// iframe type
+					$fieldType[$iteration]['iframe'] = $item['item']['iframe'];
+					$fieldType[$iteration]['thumb'] = $this->getScaledImage($item['item']['thumb_iframe'], TRUE);
+					$fieldType[$iteration]['title'] = $item['item']['title_iframe'];
+					$fieldType[$iteration]['description'] = $item['item']['description_iframe'];
+					$fieldType[$iteration]['layer'] = $item['item']['layer_iframe'];
+					$iteration++;
+					break;
+
+				case 7:
+					// file collection
+					if (is_array($item['item']['collection_files'])) {
+						foreach ($item['item']['collection_files'] as $file) {
+							$fieldType[$iteration]['image'] = $this->getScaledImage($file['url']);
+							$fieldType[$iteration]['thumb'] = $this->getScaledImage($file['url'], TRUE);
+							$fieldType[$iteration]['title'] = $file['title'];
+							$fieldType[$iteration]['description'] = $file['description'];
+							$iteration++;
+						}
+					}
+					break;
+				default:
+					break;
+			}
+
+			foreach ($fieldType as $i => $data) {
+				foreach ($data as $dataKey => $value) {
+					if ($value) {
+						$this->dataJson[$i][$dataKey] = $value;
+					}
+				}
+			}
+		}
+
+	}
+
+
+	/**
+	 * @param $path
+	 * @param bool $thumb
+	 *
+	 * @return string
+	 */
+	protected function getScaledImage($path, $thumb = FALSE) {
+		if ($path) {
+			if ($thumb !== FALSE) {
+				$conf['width'] = $this->settings['scale']['thumbWidth'];
+				$conf['height'] = $this->settings['scale']['thumbHeight'];
+			} else {
+				$conf['width'] = $this->settings['scale']['width'];
+				$conf['height'] = $this->settings['scale']['height'];
+			}
+
+			$imgResource = $this->cObj->getImgResource($path, $conf);
+
+			return $imgResource[3];
+		} else {
+			return '';
+		}
 
 	}
 
@@ -107,19 +245,27 @@ class GalleriaController extends ActionController {
 	protected function additionalTypeActions() {
 		foreach ($this->settings['items'] as $key => $item) {
 			$type = $item['item']['type'];
-			if ($type == 4) {
-				// flickr type
-				$this->hasFlickrElement = true;
-				$this->addFlickrCode($item['item'], $key);
-			} elseif ($type == 5) {
-				//picasa type
-				$this->hasPicasaElement = true;
-				$this->addPicasaCode($item['item'], $key);
-			} elseif ($type == 7) {
-				// file collection
-				if ($collection = $this->getFileCollectionItems($item['item']['collection'])) {
-					$this->settings['items'][$key]['item']['collection_files'] = $collection;
-				}
+
+			switch ($type) {
+				case 4:
+					// flickr type
+					$this->hasFlickrElement = TRUE;
+					$this->addFlickrCode($item['item'], $key);
+					break;
+				case 5:
+					//picasa type
+					$this->hasPicasaElement = TRUE;
+					$this->addPicasaCode($item['item'], $key);
+					break;
+
+				case 7:
+					// file collection
+					if ($collection = $this->getFileCollectionItems($item['item']['collection'])) {
+						$this->settings['items'][$key]['item']['collection_files'] = $collection;
+					}
+					break;
+				default:
+					break;
 			}
 		}
 	}
@@ -165,6 +311,11 @@ class GalleriaController extends ActionController {
 			}
 		}
 
+
+		ksort($this->jsBlock);
+		$inlineCode = implode("\n", $this->jsBlock);
+
+		$this->pageRenderer->addJsFooterInlineCode('galleriaMain_' . $this->recordUid, $inlineCode);
 	}
 
 	/**
@@ -183,11 +334,11 @@ class GalleriaController extends ActionController {
 		}
 		$includeFunctionName = 'add';
 
-		$excludeFromConcatenation = ($fileObj['excludeFromConcatenation'] == 1) ? true : false;
-		$compress = ($fileObj['compress'] == 1) ? true : false;
+		$excludeFromConcatenation = ($fileObj['excludeFromConcatenation'] == 1) ? TRUE : FALSE;
+		$compress = ($fileObj['compress'] == 1) ? TRUE : FALSE;
 		$funcArgumentList = array(
 			$compress,
-			$forceOnTop = false,
+			$forceOnTop = FALSE,
 			$allWrap = '',
 			$excludeFromConcatenation
 		);
@@ -240,18 +391,23 @@ class GalleriaController extends ActionController {
 		}
 		// add additionalconfig from flexform
 		if ($this->settings['additionalconfig']['js']) {
-			$this->options[] = rtrim(preg_replace('/\s+/', ' ', $this->settings['additionalconfig']['js']), ',');
+			$this->options[] = rtrim(preg_replace(' / \s +/', ' ', $this->settings['additionalconfig']['js']), ',');
 		}
+		$block = '';
 
-		$block = '
+		if ($this->settings['useJson'] != 0 && !empty($this->dataJson)) {
+			$block .= 'var galleriaData = ' . json_encode($this->dataJson) . ';';
+			$this->options[] = 'dataSource: galleriaData';
+		}
+		$block .= '
 			var galleria = Galleria;
 			galleria.configure({
 				' . implode(',', $this->options) . '
 			});
-			galleria.run("#galleria_' . $this->record['uid'] . '");
+			galleria.run("#' . $this->recordUid . '");
 		';
 
-		$this->pageRenderer->addJsFooterInlineCode('galleria_' . $this->record['uid'], $block);
+		$this->jsBlock[0] = $block;
 
 	}
 
@@ -267,7 +423,7 @@ class GalleriaController extends ActionController {
 		if (is_numeric($option) || $option == 'true' || $option == 'false') {
 			$this->options[] = $key . ':' . $option;
 		} elseif ($key == 'extend') {
-			$this->options[] = $key . ':' . trim(preg_replace('/\s+/', ' ', $option));
+			$this->options[] = $key . ':' . trim(preg_replace('/\s +/', ' ', $option));
 		} else {
 			$option = str_replace(array("'", '"'), array('', ''), $option);
 
@@ -284,18 +440,43 @@ class GalleriaController extends ActionController {
 	 */
 	protected function addPicasaCode($item, $iteration) {
 
-		$block = '
-			var picasa = new Galleria.Picasa();
-			picasa.setOptions({
-				max: ' . $item['max_picasa'] . ',
-				imageSize: "' . $item['imageSize_picasa'] . '",
-                thumbSize: "' . $item['thumbSize_picasa'] . '"
-			}).' . $item['picasa_method'] . '("' . $item['picasa'] . '", function (data) {
+		$options = array();
+		if ($item['max']) {
+			$options[] = 'max: ' . $item['max_picasa'];
+		}
+		if ($item['imageSize']) {
+			$options[] = 'max: "' . $item['imageSize_picasa'] . '"';
+		}
+		if ($item['thumbSize']) {
+			$options[] = 'max: "' . $item['thumbSize_picasa'] . '"';
+		}
+
+		if ($this->settings['one_item_only'] == 1) {
+			// if picasa_only set, then just pass it into the option array
+			$this->options[] = 'picasa: "' . $item['picasa'] . '"';
+			$this->options[] = 'picasaOptions: {
+				' . implode(',', $options) . '
+			}';
+		} else {
+			// add picasa code to the already instantiated galleria
+			if ($item['picasa_method'] === trim('useralbum')) {
+				list($user, $album) = GeneralUtility::trimExplode(',', $item['picasa']);
+				$item['picasa'] = '"' . $user . '","' . $album . '"';
+			}
+			$block = '
+				var picasa = new Galleria.Picasa();
+				picasa.setOptions({
+					' . implode(',', $options) . '
+				}).' . $item['picasa_method'] . '(' . $item['picasa'] . ', function (data) {
 				galleria.get(0).push(data);
 			});
-		';
+			';
 
-		$this->pageRenderer->addJsFooterInlineCode('galleriaPicasa_' . $this->record['uid'] . '_' . $iteration, $block);
+			$this->jsBlock[$iteration] = $block;
+
+		}
+
+
 	}
 
 	/**
@@ -305,22 +486,37 @@ class GalleriaController extends ActionController {
 	 * @return void
 	 */
 	protected function addFlickrCode($item, $iteration) {
+		$options = array();
+		if ($item['max']) {
+			$options[] = 'max: ' . $item['max_flickr'];
+		}
+		if ($item['imageSize_flickr']) {
+			$options[] = 'imageSize: "' . $item['imageSize_flickr'] . '"';
+		}
+		if ($item['thumbSize_flickr']) {
+			$options[] = 'thumbSize: "' . $item['thumbSize_flickr'] . '"';
+		}
+		if ($item['sort_flickr']) {
+			$options[] = 'sort: "' . $item['sort_flickr'] . '"';
+		}
+		if ($item['description_flickr']) {
+			$options[] = 'description: ' . $item['description_flickr'];
+		}
 
 		$block = '
 			var flickr = new Galleria.Flickr();
 			flickr.setOptions({
-				max: ' . $item['max_flickr'] . ',
-				imageSize: "' . $item['imageSize_flickr'] . '",
-                thumbSize: "' . $item['thumbSize_flickr'] . '",
-                sort: "' . $item['sort_flickr'] . '",
-                description: ' . $item['description_flickr'] . '
+				' . implode(',', $options) . '
 			}).' . $item['flickr_method'] . '("' . $item['flickr'] . '", function (data) {
 				galleria.get(0).push(data);
 			});
 		';
 
-		$this->pageRenderer->addJsFooterInlineCode('galleriaFlickr_' . $this->record['uid'] . '_' . $iteration, $block);
+		$this->jsBlock[$iteration] = $block;
+
 	}
+
+
 }
 
 ?>

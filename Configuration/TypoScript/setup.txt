@@ -77,6 +77,7 @@ plugin.tx_fluxgalleria.settings {
 
 	}
 
+	useJson = {$plugin.tx_fluxgalleria.settings.useJson}
 	debugFluid = {$plugin.tx_fluxgalleria.settings.debugFluid}
 
 	tsEnable {
@@ -86,8 +87,8 @@ plugin.tx_fluxgalleria.settings {
     tsScale {
         thumbWidth = {$plugin.tx_fluxgalleria.settings.tsScale.thumbWidth}
         thumbHeight = {$plugin.tx_fluxgalleria.settings.tsScale.thumbHeight}
-        width = {$plugin.tx_fluxgalleria.settings.tsConfig.width}
-        height = {$plugin.tx_fluxgalleria.settings.tsConfig.height}
+        width = {$plugin.tx_fluxgalleria.settings.tsScale.width}
+        height = {$plugin.tx_fluxgalleria.settings.tsScale.height}
 
     }
 

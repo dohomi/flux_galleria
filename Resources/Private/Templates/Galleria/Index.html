@@ -20,7 +20,7 @@
                                                 default="0"
                                                 requestUpdate="TRUE"/>
 
-                    <f:comment>Here are the image configuration fields</f:comment>
+                    <f:comment>Image configuration fields</f:comment>
                     <flux:flexform.field.file name="original" label="Main image" displayCond="FIELD:type:=:1"
                                               required="TRUE"/>
 
@@ -119,6 +119,11 @@
             <flux:flexform.field.input name="settings.config.height"
                                        label="Galleria height, required value. INT or for responsive design 0.68 is possible"
                                        default="400"/>
+            <flux:flexform.field.input name="settings.scale.width"
+                                       label="Main image width supports also 400c for cropping"/>
+            <flux:flexform.field.input name="settings.scale.height"
+                                       label="Main image height supports also 200c for cropping"/>
+
 
             <flux:flexform.field.select name="settings.config.thumbnails" label="Creates thumbnails and carousel"
                                         default="true" requestUpdate="TRUE"
@@ -219,45 +224,45 @@
 
 <f:section name="Main">
 
-    <div id="galleria_{record.uid}">
-
-        <f:for each="{settings.items}" as="single" iteration="iteration">
-            <f:if condition="{single.item.type} == 1">
-                <f:if condition="{single.item.thumb}">
-                    <f:then>
-                        <f:render partial="Galleria/Image"
-                                  arguments="{settings:settings,image:single.item.original, imageThumb:single.item.thumb, description:single.item.description, title:single.item.title, link:single.item.link, layer:single.item.layer}"/>
-                    </f:then>
-                    <f:else>
-                        <f:render partial="Galleria/Image"
-                                  arguments="{settings:settings,image:single.item.original, imageThumb:single.item.original, description:single.item.description, title:single.item.title, link:single.item.link, layer:single.item.layer}"/>
-                    </f:else>
+    <div id="{recordUid}">
+        <f:if condition="{settings.noJson}">
+            <f:for each="{settings.items}" as="single" iteration="iteration">
+                <f:if condition="{single.item.type} == 1">
+                    <f:if condition="{single.item.thumb}">
+                        <f:then>
+                            <f:render partial="Galleria/Image"
+                                      arguments="{settings:settings,image:single.item.original, imageThumb:single.item.thumb, description:single.item.description, title:single.item.title, link:single.item.link, layer:single.item.layer}"/>
+                        </f:then>
+                        <f:else>
+                            <f:render partial="Galleria/Image"
+                                      arguments="{settings:settings,image:single.item.original, imageThumb:single.item.original, description:single.item.description, title:single.item.title, link:single.item.link, layer:single.item.layer}"/>
+                        </f:else>
+                    </f:if>
                 </f:if>
-            </f:if>
 
 
-            <f:if condition="{single.item.type} == 2">
-                <f:render partial="Galleria/Iframe"
-                          arguments="{settings:settings, url:single.item.video, imageThumb: single.item.thumb_video, title:single.item.title_video, description:single.item.description_video, layer:single.item.layer_video, class:'video'}"/>
-            </f:if>
+                <f:if condition="{single.item.type} == 2">
+                    <f:render partial="Galleria/Iframe"
+                              arguments="{settings:settings, url:single.item.video, imageThumb: single.item.thumb_video, title:single.item.title_video, description:single.item.description_video, layer:single.item.layer_video, class:'video'}"/>
+                </f:if>
 
-            <f:if condition="{single.item.type} == 3">
-                <f:render partial="Galleria/Iframe"
-                          arguments="{settings:settings, url:single.item.video, imageThumb: single.item.thumb_iframe, title:single.item.title_iframe, description:single.item.description_iframe, layer:single.item.layer_iframe, class:'iframe'}"/>
-            </f:if>
+                <f:if condition="{single.item.type} == 3">
+                    <f:render partial="Galleria/Iframe"
+                              arguments="{settings:settings, url:single.item.video, imageThumb: single.item.thumb_iframe, title:single.item.title_iframe, description:single.item.description_iframe, layer:single.item.layer_iframe, class:'iframe'}"/>
+                </f:if>
 
-            <f:if condition="{single.item.type} == 6">
-                <dmf:fetchFiles folder="{single.item.folder}" extension="{single.item.extension}"
-                                recursive="{single.item.folder_recursive}">
-                    <f:for each="{files}" as="image">
-                        <f:render partial="Galleria/Image"
-                                  arguments="{settings:settings, image:image, imageThumb:image}"/>
-                    </f:for>
-                </dmf:fetchFiles>
-            </f:if>
+                <f:if condition="{single.item.type} == 6">
+                    <dmf:fetchFiles folder="{single.item.folder}" extension="{single.item.extension}"
+                                    recursive="{single.item.folder_recursive}">
+                        <f:for each="{files}" as="image">
+                            <f:render partial="Galleria/Image"
+                                      arguments="{settings:settings, image:image, imageThumb:image}"/>
+                        </f:for>
+                    </dmf:fetchFiles>
+                </f:if>
 
-            <f:if condition="{single.item.type} == 7">
-                <f:if condition="{single.item.collection_files}">
+                <f:if condition="{single.item.type} == 7">
+                    <f:if condition="{single.item.collection_files}">
 
                         <f:for each="{single.item.collection_files}" as="file">
                             <f:if condition="{file.type} == 2">
@@ -266,10 +271,12 @@
                             </f:if>
                         </f:for>
 
+                    </f:if>
                 </f:if>
-            </f:if>
-        </f:for>
+            </f:for>
+        </f:if>
     </div>
+
 
     <f:if condition="{settings.debugFluid}">
         <f:debug>{_all}</f:debug>
