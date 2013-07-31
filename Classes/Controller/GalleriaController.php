@@ -186,6 +186,17 @@ class GalleriaController extends ActionController {
 					$iteration++;
 					break;
 
+				case 6:
+					// folder type
+					if (is_array($item['item']['folder_files'])) {
+						foreach ($item['item']['folder_files'] as $file) {
+							$fieldType[$iteration]['image'] = $this->getScaledImage($file);
+							$fieldType[$iteration]['thumb'] = $this->getScaledImage($file, TRUE);
+							$iteration++;
+						}
+					}
+					break;
+
 				case 7:
 					// file collection
 					if (is_array($item['item']['collection_files'])) {
@@ -210,6 +221,44 @@ class GalleriaController extends ActionController {
 				}
 			}
 		}
+
+	}
+
+	/**
+	 * Returns an array of files based on the folder name
+	 *
+	 * @param $folder
+	 * @param mixed $extList CSV list of allowed file extensions
+	 * @param int $recursiveLevel
+	 *
+	 * @return array|bool
+	 */
+	protected function fetchImagesFromFolder($folder, $extList = '', $recursiveLevel = 0) {
+		// check starting point for missing slash
+		if (substr($folder, -1) != '/') {
+			$folder = $folder . '/';
+		} elseif (substr($folder, 0, 1) == '/') {
+			$size = strlen($folder);
+			$folder = substr($folder, 1, $size - 1);
+		}
+
+		if (is_dir($folder)) {
+
+			$files = GeneralUtility::getAllFilesAndFoldersInPath(
+				$fileArr = array(),
+				$folder,
+				$extList,
+				$regDirs = 0,
+				$recursiveLevel,
+				$excludePattern = ''
+			);
+
+			if (is_array($files)) {
+				return $files;
+			}
+		}
+
+		return FALSE;
 
 	}
 
@@ -253,9 +302,15 @@ class GalleriaController extends ActionController {
 					$this->addFlickrCode($item['item'], $key);
 					break;
 				case 5:
-					//picasa type
+					// picasa type
 					$this->hasPicasaElement = TRUE;
 					$this->addPicasaCode($item['item'], $key);
+					break;
+				case 6:
+					// folder type
+					if ($folderFiles = $this->fetchImagesFromFolder($item['item']['folder'], $item['item']['extension'], $item['item']['folder_recursive'])) {
+						$this->settings['items'][$key]['item']['folder_files'] = $folderFiles;
+					}
 					break;
 
 				case 7:

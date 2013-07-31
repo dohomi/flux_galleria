@@ -252,25 +252,22 @@
                 </f:if>
 
                 <f:if condition="{single.item.type} == 6">
-                    <dmf:fetchFiles folder="{single.item.folder}" extension="{single.item.extension}"
-                                    recursive="{single.item.folder_recursive}">
-                        <f:for each="{files}" as="image">
+                    <f:if condition="{single.item.folder_files}">
+                        <f:for each="{single.item.folder_files}" as="image">
                             <f:render partial="Galleria/Image"
                                       arguments="{settings:settings, image:image, imageThumb:image}"/>
                         </f:for>
-                    </dmf:fetchFiles>
+                    </f:if>
                 </f:if>
 
                 <f:if condition="{single.item.type} == 7">
                     <f:if condition="{single.item.collection_files}">
-
                         <f:for each="{single.item.collection_files}" as="file">
                             <f:if condition="{file.type} == 2">
                                 <f:render partial="Galleria/Image"
                                           arguments="{settings:settings, image:file.url, imageThumb:file.url, description:file.description, title:file.title}"/>
                             </f:if>
                         </f:for>
-
                     </f:if>
                 </f:if>
             </f:for>
