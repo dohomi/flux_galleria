@@ -1,5 +1,6 @@
 <?php
 namespace DMF\FluxGalleria\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -38,7 +39,8 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  *
  * @package DMF\FluxGalleria\Controller
  */
-class GalleriaController extends ActionController {
+class GalleriaController extends ActionController
+{
 
 	/**
 	 * @var string
@@ -506,12 +508,18 @@ class GalleriaController extends ActionController {
 			$options[] = 'max: "' . $item['thumbSize_picasa'] . '"';
 		}
 
-		if ($this->settings['one_item_only'] == 1) {
-			// if picasa_only set, then just pass it into the option array
-			$this->options[] = 'picasa: "' . $item['picasa'] . '"';
-			$this->options[] = 'picasaOptions: {
-				' . implode(',', $options) . '
-			}';
+		if ($this->settings['one_item_only'] == 1 || count($this->settings['items']) === 1) {
+			// if picasa_only or only one item as picasa image gallery is set
+			if ($item['picasa_method'] === trim('useralbum')) {
+				list($user, $album) = GeneralUtility::trimExplode(',', $item['picasa']);
+				$item['picasa'] = $user . '/' . $album;
+			}
+			$this->options[] = 'picasa: "' . $item['picasa_method'] . ':' . $item['picasa'] . '"';
+			if (!empty($options)) {
+				$this->options[] = 'picasaOptions: {
+					' . implode(',', $options) . '
+				}';
+			}
 		} else {
 			// add picasa code to the already instantiated galleria
 			if ($item['picasa_method'] === trim('useralbum')) {
