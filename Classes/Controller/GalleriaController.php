@@ -39,8 +39,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  *
  * @package DMF\FluxGalleria\Controller
  */
-class GalleriaController extends ActionController
-{
+class GalleriaController extends ActionController {
 
 	/**
 	 * @var string
@@ -103,11 +102,11 @@ class GalleriaController extends ActionController
 
 		if (!empty($settings)) {
 			$this->settings = $this->configurationManager->getConfiguration(
-				ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'fluxgalleria', 'frontend'
+			                                             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'fluxgalleria', 'frontend'
 			);
 
 			$this->configurationManager->setConfiguration(
-				$this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'fluxgalleria', 'frontend')
+			                           $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'fluxgalleria', 'frontend')
 			);
 
 			$this->settings = array_merge($this->settings, $settings);
@@ -247,12 +246,12 @@ class GalleriaController extends ActionController
 		if (is_dir($folder)) {
 
 			$files = GeneralUtility::getAllFilesAndFoldersInPath(
-				$fileArr = array(),
-				$folder,
-				$extList,
-				$regDirs = 0,
-				$recursiveLevel,
-				$excludePattern = ''
+			                       $fileArr = array(),
+			                       $folder,
+			                       $extList,
+			                       $regDirs = 0,
+			                       $recursiveLevel,
+			                       $excludePattern = ''
 			);
 
 			if (is_array($files)) {
@@ -514,7 +513,10 @@ class GalleriaController extends ActionController
 				list($user, $album) = GeneralUtility::trimExplode(',', $item['picasa']);
 				$item['picasa'] = $user . '/' . $album;
 			}
-			$this->options[] = 'picasa: "' . $item['picasa_method'] . ':' . $item['picasa'] . '"';
+
+			$this->options[] = ($album === NULL) ? 'picasa: "' . $item['picasa'] . '"' : 'picasa: "' . $item['picasa_method'] . ':' . $item['picasa'] . '"';
+
+
 			if (!empty($options)) {
 				$this->options[] = 'picasaOptions: {
 					' . implode(',', $options) . '
