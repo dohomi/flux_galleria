@@ -513,10 +513,12 @@ class GalleriaController extends ActionController {
 				list($user, $album) = GeneralUtility::trimExplode(',', $item['picasa']);
 				$item['picasa'] = ($album === NULL) ? $user : $user . '/' . $album;
 			}
+
 			// if picasa string already sets the method exclude it
 			$this->options[] = (strpos($item['picasa'], $item['picasa_method']) === FALSE)
 				? 'picasa: "' . $item['picasa_method'] . ':' . $item['picasa'] . '"'
 				: 'picasa: "' . $item['picasa'] . '"';
+
 			if (!empty($options)) {
 				$this->options[] = 'picasaOptions: {
 					' . implode(',', $options) . '
