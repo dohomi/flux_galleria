@@ -39,8 +39,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  *
  * @package DMF\FluxGalleria\Controller
  */
-class GalleriaController extends ActionController
-{
+class GalleriaController extends ActionController {
 
 	/**
 	 * @var string
@@ -512,9 +511,12 @@ class GalleriaController extends ActionController
 			// if picasa_only or only one item as picasa image gallery is set
 			if ($item['picasa_method'] === trim('useralbum')) {
 				list($user, $album) = GeneralUtility::trimExplode(',', $item['picasa']);
-				$item['picasa'] = $user . '/' . $album;
+				$item['picasa'] = ($album === NULL) ? $user : $user . '/' . $album;
 			}
-			$this->options[] = 'picasa: "' . $item['picasa_method'] . ':' . $item['picasa'] . '"';
+			// if picasa string already sets the method exclude it
+			$this->options[] = (strpos($item['picasa'], $item['picasa_method']) === FALSE)
+				? 'picasa: "' . $item['picasa_method'] . ':' . $item['picasa'] . '"'
+				: 'picasa: "' . $item['picasa'] . '"';
 			if (!empty($options)) {
 				$this->options[] = 'picasaOptions: {
 					' . implode(',', $options) . '
