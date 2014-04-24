@@ -14,7 +14,9 @@ if (!defined('TYPO3_MODE')) {
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
 # register plugin for flux configuration
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['fluxgalleria_frontend'] = 'pi_flexform';
-\Tx_Flux_Core::registerConfigurationProvider('DMF\\FluxGalleria\\Provider\\PluginConfigurationProvider');
+//$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['fluxgalleria_frontend'] = 'pi_flexform';
+
+\FluidTYPO3\Flux\Core::registerConfigurationProvider('DMF\\FluxGalleria\\Provider\\PluginConfigurationProvider');
+//\FluidTYPO3\Flux\Core::registerProviderExtensionKey('flux_galleria', 'Content');
 
 ?>

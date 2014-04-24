@@ -8,8 +8,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package DMF\Intranet\Provider\Configuration
  */
-class PluginConfigurationProvider extends \Tx_Flux_Provider_AbstractPluginConfigurationProvider
-	implements \Tx_Flux_Provider_PluginConfigurationProviderInterface {
+class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\AbstractProvider
+	implements \FluidTYPO3\Flux\Provider\ProviderInterface {
 
 	/**
 	 * @var string
@@ -24,21 +24,17 @@ class PluginConfigurationProvider extends \Tx_Flux_Provider_AbstractPluginConfig
 	/**
 	 * @var array
 	 */
-	protected $templateVariables = array();
-
-	/**
-	 * @var array
-	 */
 	protected $templatePaths = array(
 		'templateRootPath' => 'EXT:flux_galleria/Resources/Private/Templates/',
 		'partialRootPath'  => 'EXT:flux_galleria/Resources/Private/Partials/',
 		'layoutRootPath'   => 'EXT:flux_galleria/Resources/Private/Layouts/',
 	);
 
-	/**
-	 * @var string
-	 */
-	protected $configurationSectionName = 'Configuration';
+
+    /**
+     * @var string
+     */
+    protected $fieldName = 'pi_flexform';
 
 
 	/**
@@ -50,11 +46,13 @@ class PluginConfigurationProvider extends \Tx_Flux_Provider_AbstractPluginConfig
 	 * @param array $row
 	 * @return string|NULL
 	 */
+/*
 	public function getTemplatePathAndFilename(array $row) {
 		unset($row);
 		$this->templatePathAndFilename = GeneralUtility::getFileAbsFileName($this->templatePathAndFilename);
 		return $this->templatePathAndFilename;
 	}
+*/
 }
 
 ?>
