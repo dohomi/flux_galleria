@@ -6,7 +6,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Class PluginConfigurationProvider
  *
- * @package DMF\Intranet\Provider\Configuration
+ * @package DMF\FluxGalleria\Provider
  */
 class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\AbstractProvider
 	implements \FluidTYPO3\Flux\Provider\ProviderInterface {
@@ -46,13 +46,13 @@ class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\AbstractProv
 	 * @param array $row
 	 * @return string|NULL
 	 */
-/*
 	public function getTemplatePathAndFilename(array $row) {
 		unset($row);
+        xdebug_break();
 		$this->templatePathAndFilename = GeneralUtility::getFileAbsFileName($this->templatePathAndFilename);
 		return $this->templatePathAndFilename;
 	}
-*/
+
 }
 
 ?>
