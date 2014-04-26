@@ -15,21 +15,6 @@ if (!defined('TYPO3_MODE')) {
 
 # register plugin for flux configuration
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['fluxgalleria_frontend'] = 'pi_flexform';
-
-//\FluidTYPO3\Flux\Core::registerConfigurationProvider('DMF\\FluxGalleria\\Provider\\PluginConfigurationProvider');
-//\FluidTYPO3\Flux\Core::registerProviderExtensionKey('flux_galleria', 'Content');
-
-\FluidTYPO3\Flux\Core::registerFluidFlexFormPlugin(
-    $_EXTKEY,
-    'fluxgalleria_frontend',
-    'EXT:flux_galleria/Resources/Private/Templates/Galleria/Index.html',
-    array(),
-    'Configuration',
-    array(
-        'templateRootPath' => 'EXT:flux_galleria/Resources/Private/Templates/',
-        'partialRootPath' => 'EXT:flux_galleria/Resources/Private/Partials/',
-        'layoutRootPath' => 'EXT:flux_galleria/Resources/Private/Layouts/',
-    )
-);
+\FluidTYPO3\Flux\Core::registerConfigurationProvider('DMF\\FluxGalleria\\Provider\\PluginConfigurationProvider');
 
 ?>

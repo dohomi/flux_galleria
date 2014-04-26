@@ -58,7 +58,7 @@
 
                     <f:comment>Flickr configuration fields</f:comment>
                     <flux:field.select name="flickr_method" label="Flickr method to pull images."
-                                                commaSeparatedItems="search,tags,user,set,gallery,groupsearch,group"
+                                                items="search,tags,user,set,gallery,groupsearch,group"
                                                 displayCond="FIELD:type:=:4"/>
                     <flux:field.input name="flickr" label="Flickr parameter" displayCond="FIELD:type:=:4"/>
                     <flux:field.input name="max_flickr"
@@ -73,17 +73,17 @@
                                                 items="{thumb: 'Thumb: 100 on longest side',medium: 'Medium: 640 on longest side',small: 'Small: square 75x75', big: 'Big: 1024 on longest side', original: 'Original:  original image'}"/>
                     <flux:field.select name="sort_flickr" label="Sets in what order the photos will be shown."
                                                 displayCond="FIELD:type:=:4"
-                                                commaSeparatedItems="interestingness-desc,interestingness-asc,date-posted-asc,date-posted-desc,date-taken-asc,date-taken-desc,relevance"/>
+                                                items="interestingness-desc,interestingness-asc,date-posted-asc,date-posted-desc,date-taken-asc,date-taken-desc,relevance"/>
                     <flux:field.select name="description_flickr"
                                                 label="If you also wish to fetch the description, set this option to true."
-                                                commaSeparatedItems="false,true"
+                                                items="false,true"
                                                 displayCond="FIELD:type:=:4"/>
 
 
                     <f:comment>Picasa configuration fields</f:comment>
                     <flux:field.select name="picasa_method" label="Picasa method to pull images"
                                                 displayCond="FIELD:type:=:5"
-                                                commaSeparatedItems="search,user,useralbum"/>
+                                                items="search,user,useralbum"/>
                     <flux:field.input name="picasa" label="Picasa parameter of the picasa method; specific for useralbum write: user,useralbumID" displayCond="FIELD:type:=:5"/>
                     <flux:field.input name="max_picasa"
                                                label="Maximum number of photos to return (maximum value 100)"
@@ -101,14 +101,13 @@
                     <flux:field.input name="extension" label="Comma seperated list of allowed file extensions"
                                                displayCond="FIELD:type:=:6"/>
                     <flux:field.select name="folder_recursive" label="Recursive level"
-                                                commaSeparatedItems="0,1,2,3,4,5,6" displayCond="FIELD:type:=:6"/>
+                                                items="0,1,2,3,4,5,6" displayCond="FIELD:type:=:6"/>
 
                     <f:comment>File collection fields</f:comment>
-                    <f:comment>Not working right now
-                    <flux:form.field.group name="collection" label="Choose file collection"
-                                               allowed="sys_file_collection"
+                    <flux:field.relation name="collection" label="Choose file collection"
+                                               table="sys_file_collection"
                                                displayCond="FIELD:type:=:7"/>
-                    </f:comment>
+
 
                 </flux:form.object>
             </flux:form.section>
@@ -128,7 +127,7 @@
 
             <flux:field.select name="settings.config.thumbnails" label="Creates thumbnails and carousel"
                                         default="true" requestUpdate="TRUE"
-                                        commaSeparatedItems="default, true, empty, numbers, lazy, false"/>
+                                        items="default, true, empty, numbers, lazy, false"/>
             <flux:field.input name="settings.scale.thumbWidth" label="Galleria thumbnail width (default: 63)"
                                        displayCond="FIELD:thumbnails:!=:false"/>
             <flux:field.input name="settings.scale.thumbHeight" label="Galleria thumbnail height (default: 27)"
@@ -150,21 +149,21 @@
                                        default="center"/>
             <flux:field.select name="settings.config.imageCrop"
                                         label="Crops image inside the container (default: true)"
-                                        commaSeparatedItems="default,false,true,height,width,landscape,portrait"/>
+                                        items="default,false,true,height,width,landscape,portrait"/>
             <flux:field.input name="settings.config.show"
                                        label="Index of image where to start first (default: 0)"/>
             <flux:field.select name="settings.config.showCounter" label="Toggle the counter"
-                                        commaSeparatedItems="default,true,false"/>
+                                        items="default,true,false"/>
             <flux:field.select name="settings.config.showInfo" label="Display of image caption"
-                                        commaSeparatedItems="default,true,false"/>
+                                        items="default,true,false"/>
             <flux:field.select name="settings.config.showImagenav" label="Display image navigation"
-                                        commaSeparatedItems="default,true,false"/>
+                                        items="default,true,false"/>
         </flux:form.sheet>
 
         <flux:form.sheet name="lightbox" label="Lightbox">
             <flux:field.select name="settings.config.lightbox"
                                         label="Lightbox for images (only on non-linked images)"
-                                        commaSeparatedItems="default,false,true"/>
+                                        items="default,false,true"/>
             <flux:field.input name="settings.config.lightboxFadeSpeed"
                                        label="This value controls how lightbox images should fade in milliseconds (default: 200)."/>
             <flux:field.input name="settings.config.lightboxTransitionSpeed"
@@ -178,7 +177,7 @@
         <flux:form.sheet name="carousel" label="Carousel">
             <flux:field.select name="settings.config.carousel"
                                         label="Galleria comes with a built-in horizontal carousel."
-                                        commaSeparatedItems="default,true,false"/>
+                                        items="default,true,false"/>
             <flux:field.input name="settings.config.carouselSpeed"
                                        label="This option controls the slide speed of the carousel in milliseconds (default: 1200)."/>
             <flux:field.input name="settings.config.carouselSteps"
@@ -188,19 +187,19 @@
 
         <flux:form.sheet name="js-config" label="Additional options">
             <flux:field.select name="settings.config.transition" label="Transition of gallery"
-                                        commaSeparatedItems="default, slide, fade, flash, pulse, fadeslide"/>
+                                        items="default, slide, fade, flash, pulse, fadeslide"/>
             <flux:field.select name="settings.enable.history" label="Enable History plugin."
-                                        commaSeparatedItems="default, false,true"/>
+                                        items="default, false,true"/>
             <flux:field.select name="settings.config.popupLinks" label="Every link on pictures set to _blank"
-                                        commaSeparatedItems="default, false,true"/>
+                                        items="default, false,true"/>
             <flux:field.select name="settings.config.responsive" label="Set galleria in responsive mode"
-                                        commaSeparatedItems="default, false,true"/>
+                                        items="default, false,true"/>
             <flux:field.select name="settings.config.imagePan" label="Pan effect for cropped pictures"
-                                        commaSeparatedItems="default, false,true"/>
+                                        items="default, false,true"/>
             <flux:field.input name="settings.config.wait"
                                        label="Enable wait, if galleria is inside of tabs or accordion (boolean or int)."/>
             <flux:field.select name="settings.config.debug" label="Enable debug for error reporting"
-                                        commaSeparatedItems="default, false,true"/>
+                                        items="default, false,true"/>
             <flux:field.text name="settings.additionalconfig.js"
                                       label="Add your specific js options. You can add whatever options are missing in ts or flexform."/>
 

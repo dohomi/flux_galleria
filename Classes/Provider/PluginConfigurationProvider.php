@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package DMF\FluxGalleria\Provider
  */
-class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\AbstractProvider
+class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\ContentProvider
 	implements \FluidTYPO3\Flux\Provider\ProviderInterface {
 
 	/**
@@ -36,8 +36,17 @@ class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\AbstractProv
      */
     protected $fieldName = 'pi_flexform';
 
+    /**
+     * @var string
+     */
+    protected $tableName='tt_content';
 
-	/**
+    /**
+     * @var string
+     */
+    protected $configurationSectionName = 'Configuration';
+
+    /**
 	 * @var string
 	 */
 	protected $templatePathAndFilename = 'EXT:flux_galleria/Resources/Private/Templates/Galleria/Index.html';
@@ -48,7 +57,6 @@ class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\AbstractProv
 	 */
 	public function getTemplatePathAndFilename(array $row) {
 		unset($row);
-        xdebug_break();
 		$this->templatePathAndFilename = GeneralUtility::getFileAbsFileName($this->templatePathAndFilename);
 		return $this->templatePathAndFilename;
 	}
