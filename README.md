@@ -1,4 +1,4 @@
-TYPO3 extension Galleria - includes image and video gallery based on flux and fluidcontent
+TYPO3 extension Galleria - includes image and video gallery based on flux
 =================================================================================================
 
 ## What is it?
@@ -27,10 +27,10 @@ Add a new Content element and adjust the look and feel with the large set of con
 
 ## Check out all options
 
-All docs for customization of the gallery can be found at http://galleria.io/docs/ - the awesome gallery framework, which makes this whole project possible.
+All docs for customization of the gallery can be found at http://galleria.io/docs/ - the gallery framework, on which this project is based on.
 
 ## References
 
-* https://github.com/NamelessCoder/flux is a dependency - it is the integration necessary to render Fluid Content Elements
+* https://github.com/NamelessCoder/flux is a dependency - it is the integration necessary to render "Fluid Content Elements"
 * http://galleria.io is the link to the Galleria JavaScript-Framework
 

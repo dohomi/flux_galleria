@@ -8,7 +8,6 @@ if (!defined('TYPO3_MODE')) {
 	'Frontend',
 	array(
 		'Galleria' => 'index',
-		
 	),
 	// non-cacheable actions
 	array(
