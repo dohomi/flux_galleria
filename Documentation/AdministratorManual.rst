@@ -38,6 +38,7 @@ Configuration
 	Constants configuration of the plugin
 
 	Here you can change the default behaviour of all included galleries
+
 FAQ
 ====
 

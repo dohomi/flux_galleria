@@ -1,15 +1,43 @@
 Extension Manual
 =================
 
-This is a template manual aiming to pave the way to developers when it comes about documentation. The template provides a structure that a developer can take over and, in addition, many useful snippets and examples. Documentation is written in reST format. Refer to Help writing reStructuredText to get some more insight about the syntax and available reST editors. For instance, you might be particularly interested how you can :
+TYPO3 extension Galleria - includes image and video gallery based on flux
+=================================================================================================
 
-* generate the documentation using on-line services (@todo to write) 
-* `make links`_ accros projects
-* how you should write TypoScript reference.
+## What is it?
 
-Any idea or suggestion for improving this template `can be drop`_ to our team_. And remember: documentation is like gift wrapping, it looks like superfluous, but your friend tends to be rather disappointed when their presents arrive in supermarket carrier bags. (Documentation-Driven Design quote)
+A fully featured image and video gallery oriented Fluid Content Elements written with the help of EXT: 'flux'. The JavaScript framework is build by the team of `Galleria plugin`_
 
-.. _can be drop: http://forge.typo3.org/projects/typo3v4-official_extension_template/issues
-.. _team: http://forge.typo3.org/projects/typo3v4-official_extension_template
-.. _make links: RestructuredtextHelp.html#cross-linking
-.. _can write TypoScript: RestructuredtextHelp.html#typoscript-reference
+## What does it do?
+
+Provides the template files and TypoScript setup necessary to use the gallery element. Galleria is a pure JavaScript image gallery solution for the web and mobile devices.
+
+## How does it do it?
+
+Its mainly flux configuration which gets transformed into flexform - this enables use of specially constructed Fluid templates as
+content elements, much like the Flexible Content Elements concept from TemplaVoila.
+
+## How is it installed?
+
+Download, install the extension and include the static TypoScript configuration.
+
+## How is it used?
+
+After installation and inclusion of the static TypoScript, the included content elements will be available as new content element
+inside of 'Fluid Content Element' tab.
+
+Add a new Content element and adjust the look and feel with the large set of configuration options.
+
+## Check out all options
+
+All docs for customization of the gallery can be found at `Galleria`_  - the gallery framework, on which this project is based on.
+
+## References
+
+* `flux`_ is a dependency - it is the integration necessary to render "Fluid Content Elements"
+* `jQuery Galleria`_ is the link to the Galleria JavaScript-Framework
+
+.. _Galleria: http://galleria.io/docs/
+.. _flux: https://github.com/NamelessCoder/flux
+.. _jQuery Galleria: http://galleria.io
+.. _Galleria plugin: http://galleria.io

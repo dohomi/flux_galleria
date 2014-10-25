@@ -22,7 +22,7 @@ Bugs and Known Issues
 
 Please make use of the github `Issue Tracker`_ to report any bugs and issues.
 
-.. _Bug Tracker: https://github.com/dohomi/flux_galleria/issues
+.. _Issue Tracker: https://github.com/dohomi/flux_galleria/issues
 
 To Do
 -----------
