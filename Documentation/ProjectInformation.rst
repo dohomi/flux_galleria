@@ -2,42 +2,42 @@
 Project Information
 =====================
 
-Give `general information`_ about the project:
+You find my `general information`_ on forge:
 
-* When the project started and under what circumstances?
-* Quote possible sponsors.
-* How can people contribute to the project?
+* This extension it the successor or dmf_gallery which was built up from scratch to include all new features
+* It depends on `flux`_ for the flexform field setup
+* The gallery
 
-.. _general information: http://forge.typo3.org/projects/typo3v4-official_extension_template
+.. _general information: https://forge.typo3.org/projects/extension-flux_galleria
+.. _flux: http://typo3.org/extensions/repository/view/flux
 
 Releases
 -----------
 
-* Say where the user can download the `source code`_ of the project.
-* Explain where `stable versions`_ are released.
+* You find the current development `source code`_ on github
+* The `stable versions`_ are available at the TER.
 
 Bugs and Known Issues
 -----------------------------------
 
-Say where bugs can be reported / followed up. Is it a `Bug Tracker`_? Use this section for informing about any type of of problem that are not necessarily named in the bug tracker such as performance issues, ...
+Please make use of the github `Issue Tracker`_ to report any bugs and issues.
 
-.. _Bug Tracker: http://forge.typo3.org/projects/typo3v4-official_extension_template/issues
+.. _Bug Tracker: https://github.com/dohomi/flux_galleria/issues
 
 To Do
 -----------
 
-Give a link pointing to a roadmap_. Alternatively, you can dress up a list of things you want to add or fix in this chapter or give a visions what the extension could become with more development.
-
-.. _roadmap: http://forge.typo3.org/projects/typo3v4-official_extension_template/roadmap
+Currently I am happy how the gallery works. For sure I could improve the documentation a bit...
 
 
 Change Log
 -----------
 
-It is recommended to provide the User with a URL pointing to a roadmap_. Forge gives the possibility to create a Roadmap very easily. Optionnally, the link could point to the `repository log`_.
+You can find `changes`_ at the Changelog file and at the `extension repository`_ itself
+
+.. _changes: https://github.com/dohomi/flux_galleria/blob/master/Changelog.md
+.. _extension repository: http://typo3.org/extensions/repository/view/flux_galleria
 
 
-.. _source code: http://git.typo3.org/
+.. _source code: https://github.com/dohomi/flux_galleria
 .. _stable versions: http://typo3.org/extensions/repository/
-.. _roadmap: http://forge.typo3.org/projects/typo3v4-official_extension_template/roadmap
-.. _repository log: http://git.typo3.org/TYPO3v4/Core.git?a=shortlog

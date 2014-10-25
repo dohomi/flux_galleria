@@ -34,7 +34,6 @@ The content of this document is related to TYPO3, a GNU/GPL CMS/Framework availa
 	AdministratorManual
 	TyposcriptReference
 	DeveloperCorner
-	RestructuredtextHelp
 
 .. STILL TO ADD IN THIS DOCUMENT
 	@todo: add section about how screenshots can be automated. Pointer to PhantomJS could be added.
@@ -46,12 +45,14 @@ The content of this document is related to TYPO3, a GNU/GPL CMS/Framework availa
 What does it do?
 =================
 
-In this chapter should be given a brief overview of the extension. What does it do? What problem does it solve? Who is interested in this? Basically, this section includes everything people need to know to decide whether they should go on with this extension.
+This extension provides an easy and flexible way to include jQuery's `Galleria`_ plugin into your website.
 
-.. figure:: Images/IntroductionPackage.png
+.. _Galleria: http://galleria.io/
+
+.. figure:: Images/Galleria.png
 		:width: 500px
-		:alt: Introduction Package
+		:alt: Galleria plugin
 
-		Introduction Package just after installation (caption of the image)
+		Nice image/video gallery for TYPO3
 
-		How the Frontend of the Introduction Package looks like just after installation (legend of the image)
+		Include image, youtube, dailyvideo, vimeo or file collection with few steps into your TYPO3 page

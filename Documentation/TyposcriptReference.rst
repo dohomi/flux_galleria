@@ -2,65 +2,36 @@
 Configuration Reference
 =========================
 
-Technical information: Installation, Reference of TypoScript options,
-configuration options on system level, how to extend it, the technical
-details, how to debug it and so on.
-
-Language should be technical, assuming developer knowledge of TYPO3.
-Small examples/visuals are always encouraged.
+You configure the extension through constants and flexforms of the included plugin. All constants are taken from the `jQuery Galleria`_ options.
 
 Target group: **Developers**
 
+.. _jQuery Galleria: http://galleria.io/docs/options/#list-of-options
 
 TypoScript Reference
 =====================
 
-Possible subsections: Reference of TypoScript options.
+Please check out the `list of options`_, you will find most of the options as TS constants or flexform values
 
-.. ..................................
-.. container:: table-row
+.. _list of options: http://galleria.io/docs/options/#list-of-options
 
-	Property
-		allWrap / +stdWrap
+.. figure:: Images/Typoscript_Example.png
+:width: 500px
+		:alt: Typoscript example
 
-	Data type
-		wrap
+			Example of some Galleria options
 
-	Description
-		Wraps the whole item.
+			You can predefine the options of the Galleria through typoscript constants.
 
-	Default
+.. figure:: Images/Flexform_Example.png
+:width: 500px
+		:alt: Flexform options
 
-.. ..................................
-.. container:: table-row
+			Example of flexform options for each gallery content element
 
-	Property
-		wrapItemAndSub
-
-	Data type
-		wrap
-
-	Description
-		Wraps the whole item and any submenu concatenated to it.
-
-	Default
-
-.. ..................................
-.. container:: table-row
-
-	Property
-		subst_elementUid
-
-	Data type
-		boolean
-
-	Description
-		If set, all appearances of the string '{elementUid}' in the total element html-code (after wrapped in .allWrap} is substituted with the uid number of the menu item. This is useful if you want to insert an identification code in the HTML in order to manipulate properties with JavaScript.
-
-	Default
-
+			Overwrite the constants and current behaviour from each gallery content element through flexform values.
 
 FAQ
 ====
 
-Possible subsection: FAQ
+Let me know if you bump into special problems or anything is not clear enough.

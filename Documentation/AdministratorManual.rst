@@ -3,44 +3,44 @@ Administrator Manual
 ============================
 
 Target group: **Administrators**
-
-Describes how to manage the extension from an administrator point of view. That relates to Page/User TSconfig, permissions, configuration etc., which administrator level users have access to.
-
-Language should be non / semi-technical, explaining, using small examples.
+Here you find all information how to install the gallery extension. Its actually very fast and staight forward
 
 
 Installation
 =============
 
-* How should the extension be installed?
-* Are they dependencies to resolve?
-* Is it a static template file to be included?
+* Find the extension in the TER and install it
+* Make sure that dependency flux ist installed as well
+* As last step include static typoscript template 'Galleria extension for TYPO3'
 
-Example of sentence:
-
-Install the extension as normal in the Extension Manager. Notice, when activating the extension, the following
-options:
-
-* LIST_OF_VALUES : write a comma separated list of values...
-* ...
+Install the extension as normal in the Extension Manager. Notice, when activating the extension and including the static typoscript
+you will find the 'constants' and 'setup' sections.
 
 
-.. figure:: Images/AdministratorManual/ExtensionManager.png
+.. figure:: Images/AdministratorManual/Installation_1.png
 		:width: 500px
-		:alt: Extension Manager
+		:alt: Static Template
 
-		Extension Manager (caption of the image)
+		Include static template
 
-		List of extensions within the Extension Manager also shorten with "EM" (legend of the image)
+		Add the static template into your website
 
 
 Configuration
 =======================
 
-* Where and how the extension should be configured? TypoScript? PHP?
-* Are there other prerequisite to full fill beforehand? For example, configure a setting in a special way somewhere.
+* You can change the default behavior of the gallery while changing the typoscript constants or setup
+* Additional you can overwrite the configuration through the flexform configuration on each gallery plugin
 
+
+.. figure:: Images/AdministratorManual/Typoscript_Constants.png
+		:width: 500px
+		:alt: Typoscript constants
+
+			Constants configuration of the plugin
+
+			Here you can change the default behaviour of all included galleries
 FAQ
 ====
 
-Possible subsection: FAQ
+I guess its pretty much straight forward like any other extension you would install. Please get in touch with me if you bump in any problems.
