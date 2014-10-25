@@ -16,20 +16,18 @@ Please check out the `list of options`_, you will find most of the options as TS
 .. _list of options: http://galleria.io/docs/options/#list-of-options
 
 .. figure:: Images/Typoscript_Example.png
-:width: 500px
-		:alt: Typoscript example
+	:alt: Typoscript example
 
-			Example of some Galleria options
+	Example of some Galleria options
 
-			You can predefine the options of the Galleria through typoscript constants.
+	You can predefine the options of the Galleria through typoscript constants.
 
 .. figure:: Images/Flexform_Example.png
-:width: 500px
-		:alt: Flexform options
+	:alt: Flexform options
 
-			Example of flexform options for each gallery content element
+	Example of flexform options for each gallery content element
 
-			Overwrite the constants and current behaviour from each gallery content element through flexform values.
+	Overwrite the constants and current behaviour from each gallery content element through flexform values.
 
 FAQ
 ====

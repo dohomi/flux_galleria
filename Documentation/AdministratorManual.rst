@@ -18,12 +18,11 @@ you will find the 'constants' and 'setup' sections.
 
 
 .. figure:: Images/AdministratorManual/Installation_1.png
-		:width: 500px
-		:alt: Static Template
+	:alt: Static Template
 
-		Include static template
+	Include static template
 
-		Add the static template into your website
+	Add the static template into your website
 
 
 Configuration
@@ -34,12 +33,11 @@ Configuration
 
 
 .. figure:: Images/AdministratorManual/Typoscript_Constants.png
-		:width: 500px
-		:alt: Typoscript constants
+	:alt: Typoscript constants
 
-			Constants configuration of the plugin
+	Constants configuration of the plugin
 
-			Here you can change the default behaviour of all included galleries
+	Here you can change the default behaviour of all included galleries
 FAQ
 ====
 

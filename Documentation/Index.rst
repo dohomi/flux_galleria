@@ -50,9 +50,8 @@ This extension provides an easy and flexible way to include jQuery's `Galleria`_
 .. _Galleria: http://galleria.io/
 
 .. figure:: Images/Galleria.png
-		:width: 500px
-		:alt: Galleria plugin
+	:alt: Galleria plugin
 
-		Nice image/video gallery for TYPO3
+	Nice image/video gallery for TYPO3
 
-		Include image, youtube, dailyvideo, vimeo or file collection with few steps into your TYPO3 page
+	Include image, youtube, dailyvideo, vimeo or file collection with few steps into your TYPO3 page

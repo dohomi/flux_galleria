@@ -14,20 +14,18 @@ You can add a gallery plugin on each section of your project.
 Here you find some screenshots for the first steps:
 
 .. figure:: Images/UserManual/Choose_Element.png
-		:width: 500px
-		:alt: Add new content element
+	:alt: Add new content element
 
-		Add new content element
+	Add new content element
 
-		Select the 'General Plugin' from the content element selection
+	Select the 'General Plugin' from the content element selection
 
 .. figure:: Images/UserManual/Galleria_Backend.png
-:width: 500px
-		:alt: Select Galleria
+	:alt: Select Galleria
 
-		Select Galleria form the selector
+	Select Galleria form the selector
 
-		Select the Galleria plugin and start adding image items and adjust the behaviour through the flexform values
+	Select the Galleria plugin and start adding image items and adjust the behaviour through the flexform values
 
 
 
