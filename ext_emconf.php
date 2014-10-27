@@ -25,23 +25,18 @@ $EM_CONF[$_EXTKEY] = array(
     'modify_tables' => '',
     'clearCacheOnLoad' => 0,
     'lockType' => '',
-    'version' => '2.1.1',
-    'constraints' =>
-        array(
-            'depends' =>
-                array(
-                    'typo3' => '6.1.0-6.2.99',
-                    'extbase' => '',
-                    'fluid' => '',
-                    'flux' => '7.1-7.99',
-                ),
-            'conflicts' =>
-                array(),
-            'suggests' =>
-                array(),
+    'version' => '2.1.0',
+    'constraints' => array(
+        'depends' => array(
+            'typo3' => '6.1.0-6.2.99',
+            'cms' => '',
+            'extbase' => '',
+            'fluid' => '',
+            'flux' => '7.1.0-7.1.99',
         ),
-    'comment' => 'bugfix if use only one Picasa gallery',
-    'user' => 'dohomi',
+        'conflicts' => array(),
+        'suggests' => array(),
+    )
 );
 
 ?>
