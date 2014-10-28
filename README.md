@@ -34,3 +34,6 @@ All docs for customization of the gallery can be found at http://galleria.io/doc
 * https://github.com/NamelessCoder/flux is a dependency - it is the integration necessary to render "Fluid Content Elements"
 * http://galleria.io is the link to the Galleria JavaScript-Framework
 
+### Development
+This extension is powered by the best PHP IDE for TYPO3 projects: PhpStorm :-)
+
