@@ -34,6 +34,12 @@ All docs for customization of the gallery can be found at http://galleria.io/doc
 * https://github.com/NamelessCoder/flux is a dependency - it is the integration necessary to render "Fluid Content Elements"
 * http://galleria.io is the link to the Galleria JavaScript-Framework
 
-### Development
-This extension is powered by the best PHP IDE for TYPO3 projects: PhpStorm :-)
++### Sponsors
+ +
+ +ng2-material is an open source project sponsored by JetBrains. Any major contributors to the project are entitled to an all-products license for development of ng2-material features, which includes WebStorm.
+ +
+ +<a href="https://www.jetbrains.com/" target="_blank"><img src="./public/images/logo_jetbrains.svg" width="256"></a>
+ +<a href="https://www.jetbrains.com/webstorm/" target="_blank"><img src="./public/images/logo_webstorm.svg" width="256"></a>
+ +
+ +
 
