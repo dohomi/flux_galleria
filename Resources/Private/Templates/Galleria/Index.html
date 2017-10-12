@@ -1,14 +1,12 @@
-{namespace flux=FluidTYPO3\Flux\ViewHelpers}
-{namespace dmf=DMF\FluxGalleria\ViewHelpers}
-
 <f:layout name="Default"/>
 
 <div xmlns="http://www.w3.org/1999/xhtml"
      xmlns:f="http://typo3.org/ns/fluid/ViewHelpers"
-     xmlns:flux="http://fedext.net/ns/flux/ViewHelpers">
+     xmlns:dmf="http://typo3.org/ns/DMF/FluxGalleria/ViewHelpers"
+     xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers">
 
 <f:section name="Configuration">
-    <flux:form id="galleria" enabled="TRUE" label="Galleria image & video plugin">
+    <flux:form id="galleria" enabled="true" label="Galleria image & video plugin">
 
         <flux:form.sheet name="data" label="Images / Videos">
 
@@ -16,13 +14,13 @@
                 <flux:form.object name="item" label="Gallery item">
 
                     <flux:field.select name="type" label="Type"
-                                                items="{0: 'Please select', 1: 'Image', 2: 'Video', 3: 'IFrame', 4: 'Flickr', 5: 'Picasa', 6: 'Folder', 7: 'File Collection'}"
+                                                items="{0: 'Please select', 1: 'Image', 2: 'Video', 3: 'IFrame', 4: 'Flickr', 5: 'Picasa', 6: 'Folder'}"
                                                 default="0"
-                                                requestUpdate="TRUE"/>
+                                                requestUpdate="true"/>
 
                     <f:comment>Image configuration fields</f:comment>
                     <flux:field.file name="original" label="Main image" displayCond="FIELD:type:=:1"
-                                              required="TRUE"/>
+                                              required="true"/>
 
                     <flux:field.file name="thumb" label="Image thumbnail source" displayCond="FIELD:type:=:1"/>
                     <flux:field.input name="title" label="Title" displayCond="FIELD:type:=:1"/>
@@ -103,13 +101,6 @@
                     <flux:field.select name="folder_recursive" label="Recursive level"
                                                 items="0,1,2,3,4,5,6" displayCond="FIELD:type:=:6"/>
 
-                    <f:comment>File collection fields</f:comment>
-
-                    <flux:field.relation name="collection" label="Choose file collection"
-                                               table="sys_file_collection"
-                                               displayCond="FIELD:type:=:7"/>
-
-
                 </flux:form.object>
             </flux:form.section>
         </flux:form.sheet>
@@ -127,19 +118,19 @@
 
 
             <flux:field.select name="settings.config.thumbnails" label="Creates thumbnails and carousel"
-                                        default="true" requestUpdate="TRUE"
+                                        default="true" requestUpdate="true"
                                         items="default, true, empty, numbers, lazy, false"/>
             <flux:field.input name="settings.scale.thumbWidth" label="Galleria thumbnail width (default: 63)"
-                                       displayCond="FIELD:thumbnails:!=:false"/>
+                                       displayCond="FIELD:settings.config.thumbnails:!=:false"/>
             <flux:field.input name="settings.scale.thumbHeight" label="Galleria thumbnail height (default: 27)"
-                                       displayCond="FIELD:thumbnails:!=:false"/>
+                                       displayCond="FIELD:settings.config.thumbnails:!=:false"/>
 
             <flux:field.input name="settings.config.maxScaleRatio"
                                        label="Sets the maximum scale ratio for images. Set 1 for non-upscale"
-                                       displayCond="FIELD:thumbnails:!=:false"/>
+                                       displayCond="FIELD:settings.config.thumbnails:!=:false"/>
             <flux:field.input name="settings.config.minScaleRatio"
                                        label="Sets the minimum scale ratio for images. Set 1 for non-downscale"
-                                       displayCond="FIELD:thumbnails:!=:false"/>
+                                       displayCond="FIELD:settings.config.thumbnails:!=:false"/>
 
 
         </flux:form.sheet>
@@ -174,7 +165,6 @@
             <flux:field.input name="settings.config.overlayOpacity"
                                        label="This sets how much opacity the overlay should have when calling showLightbox() (default: 0.85)."/>
         </flux:form.sheet>
-
         <flux:form.sheet name="carousel" label="Carousel">
             <flux:field.select name="settings.config.carousel"
                                         label="Galleria comes with a built-in horizontal carousel."

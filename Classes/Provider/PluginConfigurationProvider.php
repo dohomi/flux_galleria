@@ -11,6 +11,11 @@ class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\Provider {
     /**
      * @var string
      */
+    protected $controllerName = 'Content';
+
+    /**
+     * @var string
+     */
     protected $extensionKey = 'flux_galleria';
 
     /**
@@ -22,9 +27,9 @@ class PluginConfigurationProvider extends \FluidTYPO3\Flux\Provider\Provider {
      * @var array
      */
     protected $templatePaths = array(
-        'templateRootPath' => 'EXT:flux_galleria/Resources/Private/Templates/',
-        'partialRootPath' => 'EXT:flux_galleria/Resources/Private/Partials/',
-        'layoutRootPath' => 'EXT:flux_galleria/Resources/Private/Layouts/',
+        'templateRootPaths.10' => 'EXT:flux_galleria/Resources/Private/Templates/',
+        'partialRootPaths.10' => 'EXT:flux_galleria/Resources/Private/Partials/',
+        'layoutRootPaths.10' => 'EXT:flux_galleria/Resources/Private/Layouts/',
     );
 
     /**

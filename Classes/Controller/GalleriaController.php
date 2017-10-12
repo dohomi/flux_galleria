@@ -426,8 +426,16 @@ class GalleriaController extends ActionController {
                 array_unshift($funcArgumentList, $file);
 
             }
-            call_user_func_array(array($GLOBALS['TSFE']->getPageRenderer(), $includeFunctionName), $funcArgumentList);
+            call_user_func_array(array($this->getPageRenderer(), $includeFunctionName), $funcArgumentList);
         }
+    }
+
+    protected function getPageRenderer()
+    {
+        if ($this->pageRenderer === null) {
+            $this->pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
+        }
+        return $this->pageRenderer;
     }
 
     /**
