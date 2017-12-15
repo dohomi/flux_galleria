@@ -1,3 +1,8 @@
+## Maintainer needed!
+
+It has been a long time for me putting my spare time and energy into this project. I stopped to continue providing bugfixes or publish any releases any longer - anybody who wants to take over this repo please send me a message.
+
+
 TYPO3 extension Galleria - includes image and video gallery based on flux
 =================================================================================================
 
