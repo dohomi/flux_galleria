@@ -1,8 +1,8 @@
 plugin.tx_fluxgalleria {
 	view {
-		templateRootPath = {$plugin.tx_fluxgalleria.view.templateRootPath}
-		partialRootPath = {$plugin.tx_fluxgalleria.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_fluxgalleria.view.layoutRootPath}
+		templateRootPaths.10 = {$plugin.tx_fluxgalleria.view.templateRootPath}
+		partialRootPaths.10 = {$plugin.tx_fluxgalleria.view.partialRootPath}
+		layoutRootPaths.10 = {$plugin.tx_fluxgalleria.view.layoutRootPath}
 	}
 	persistence {
 		storagePid = {$plugin.tx_fluxgalleria.persistence.storagePid}
